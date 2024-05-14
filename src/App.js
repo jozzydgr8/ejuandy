@@ -19,7 +19,7 @@ import { AdminRoot } from "./Template/AdminRoot";
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBSdeLzFx9lDRpTHyZNBq5yr_NqhGjycko",
+  apiKey: process.env.REACT_APP_APIKEY,
   authDomain: "ejuandy-dd839.firebaseapp.com",
   projectId: "ejuandy-dd839",
   storageBucket: "ejuandy-dd839.appspot.com",
