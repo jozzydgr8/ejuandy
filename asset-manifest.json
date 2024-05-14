@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/ejuandy/static/css/main.c4b436cb.css",
-    "main.js": "/ejuandy/static/js/main.ecc7ec57.js",
+    "main.js": "/ejuandy/static/js/main.d1d51b25.js",
     "static/js/453.21980037.chunk.js": "/ejuandy/static/js/453.21980037.chunk.js",
     "static/media/border-from-stationery-technologies-with-coffee.jpg": "/ejuandy/static/media/border-from-stationery-technologies-with-coffee.530d99ed6b064d6f8b86.jpg",
     "static/media/correctvideobackground.jpg": "/ejuandy/static/media/correctvideobackground.b04dd116f56ebfcc005e.jpg",
@@ -19,11 +19,11 @@
     "static/media/africa-magic.png": "/ejuandy/static/media/africa-magic.0655dc40afa27a1e1d31.png",
     "index.html": "/ejuandy/index.html",
     "main.c4b436cb.css.map": "/ejuandy/static/css/main.c4b436cb.css.map",
-    "main.ecc7ec57.js.map": "/ejuandy/static/js/main.ecc7ec57.js.map",
+    "main.d1d51b25.js.map": "/ejuandy/static/js/main.d1d51b25.js.map",
     "453.21980037.chunk.js.map": "/ejuandy/static/js/453.21980037.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.c4b436cb.css",
-    "static/js/main.ecc7ec57.js"
+    "static/js/main.d1d51b25.js"
   ]
 }
