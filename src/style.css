@@ -1,0 +1,297 @@
+*{
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+}
+.linkAnimation{
+    animation:shakeX ;
+    animation-duration: 1s;
+    animation-delay: 1s;
+    /* animation-iteration-count: infinite; */
+}
+body{
+    text-align: center;
+    
+}
+.background{
+    background: rgb(41, 41, 41);
+    color: white;
+}
+.container-fluid{
+    padding: 7% 10%;
+}
+h1, h2, h3, h4, h5{
+    text-transform: uppercase;
+    margin: 2% 0;
+}
+
+hr{
+    height: 2px;
+    color: white;
+    background: white;
+    padding: 0%;
+    margin: 0%;
+}
+.hover:hover{
+    cursor: pointer;
+    
+}
+
+
+iframe, video{
+    max-width: 100%;
+    height: auto;
+    margin: 3% 0;
+}
+
+img{
+    width: 60%;
+    text-align: center;
+}
+
+
+.loader{
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+}
+.loader.spinner-border{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.spinner-border{
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    z-index: 999;
+}
+
+
+
+.monserrat{
+    font-family: 'Montserrat', sans-serif;
+}
+.more-less-button{
+    background: none;
+    color: white;
+}
+
+.roboto{
+    font-family: 'Roboto', sans-serif;
+}
+.second-more-less-button{
+    margin: 2% 0;
+    background: none;
+    color: white;
+}
+.sacramento{
+    font-family: 'Sacramento', cursive;
+    font-size: 1.3vw;
+
+}
+
+.ubuntu{
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 200;
+    font-size: 3vw;
+}
+
+/* ***********navbar  and firsst sevtion*/
+.carousel-section{
+    text-align: left ;
+    padding: 15% 25% 15% 13%;
+    font-size: 2.3vw;
+    line-height: 1.5;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 200;
+}.carousel-readmore{
+    font-size: 1.8vw;
+    border: none;
+    outline: none;
+    background: transparent;
+    text-transform: lowercase;
+}
+
+.ejuandy-logo{
+    width: 32%;
+}
+
+.navbar{
+    padding: 1% 5%;
+}
+.nav-link{
+    text-transform: uppercase;
+}
+.nav-texts{
+    font-size:0.8vw ;
+    text-transform: capitalize;
+}
+
+.readmore-btn{
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 1.0vw;
+}
+@media (max-width:600px) {
+    .readmore-btn{
+        font-size: 1.7vw;
+    }
+}
+/* **********second-section******** */
+    
+    .card{
+        margin: 4% 2%;
+        border: none;
+        background: rgb(240, 239, 239);
+        box-shadow: 6px 9px rgb(104, 104, 104);
+        font-size: 1.5vw;
+        min-height: 350px;
+    }
+    @media (max-width:700px) {
+        .card{
+            min-height: 60%;
+        }
+    }
+    .card:hover{
+        box-shadow: 6px 9px rgb(138, 138, 138); 
+    } 
+    .card-edit{
+        text-transform: capitalize;
+        font-size: xx-small;
+    }
+    .card-title {
+        font-size: 2.5vw;
+        text-align: center;
+    }
+     .card-subtitle{
+        font-size: 2vw;
+        text-align: center;
+    }
+    
+    @media (max-width:900px) {
+        .btn{
+            font-size: 2.5vw;
+        }
+    }
+    .second-section-card-texts{
+        padding: 0% 7%;
+    }
+    #second-section{
+        text-align: left;
+    }
+    #carousel-section-testimonial{
+        text-align: center;
+    }
+
+/* *********second-section************ */
+
+
+/* ************third-section******* */
+#distribution-section  p {
+    text-align: left;
+}
+
+
+/* *********third-section-end********** */
+
+/* ***********fourth-section-text******** */
+#fintech-section .button-container{
+    text-align: left;
+}
+.warning-text{
+    color: gainsboro;
+    font-size: smaller;
+}
+
+
+.fourth-section-text{
+    margin: 5% 0 5% 0;
+    text-align: left;
+}
+
+/* ***********fourth-section-end****** */
+
+
+/* ********fifth-section******* */
+.fifth-section-button{
+    margin-bottom: 5%;
+}
+
+
+.business-text{
+    text-align: left;
+    padding-top: 8%;
+}
+
+.fifth-section-text{
+
+    text-align: left;
+    margin: 10% 0 3% 0;
+}
+ 
+
+/* *********fifth-section-end***** */
+/* ***********entertainment-section */
+
+
+#entertainment-section .container-fluid{
+    padding: 7% 7%;
+}
+
+.iframe-link{
+    color: gainsboro;
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+
+/* *****contact-section******** */
+
+
+/* *******footer-section*** */
+#footer-section {
+    text-transform: lowercase !important;
+}
+#footer-section .container-fluid{
+    padding: 3% 5%;
+}
+.footer-section-link{
+    color: gainsboro;
+    text-decoration: none;
+
+}
+
+
+
+
+.distribute-car{
+    background-image: url('./asset/correctvideobackground.jpg');
+    
+}
+.cover{
+    background-size: cover;
+}
+.fintech-car{
+    background-image: url('./asset/rubberstampbackground.jpg');
+}
+.bus-car{
+    background-image: url('./asset/border-from-stationery-technologies-with-coffee.jpg');
+}
+.button-container{
+    margin: 2% 0;
+}
+
+.media-grid{
+    margin-top: 4%;
+}
