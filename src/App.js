@@ -47,7 +47,7 @@ function App() {
     
     <Route path="ejuandy" element={<Root/>}>
       <Route index element={<Home/>}/>
-      <Route path="form" element={<FinForm />}/>
+      <Route path='form' element={<FinForm />}/>
       <Route path='admin' element={addy ? <AdminRoot/> :<Navigate to='ejuandy'/> }>
         <Route index element={user ? <Admin/> : <Navigate to ='auth'/>} />
         <Route path='auth' element={!user ? <Login/> : <Navigate to ='..' />} />

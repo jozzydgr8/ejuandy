@@ -66,7 +66,7 @@ export const Carousel = ()=>{
                             </button>
 
                             <div className="button-container">
-                            <Link to={'/form'} type="button" className="btn btn-secondary btn-lg">Get Loan</Link>
+                            <Link to={'form'} type="button" className="btn btn-secondary btn-lg">Get Loan</Link>
                             </div>
 
                         </div>

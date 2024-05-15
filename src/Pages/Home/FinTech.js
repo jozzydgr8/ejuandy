@@ -41,7 +41,7 @@ export const Fintech = ()=>{
                             </button>
                         </p>
                         <div className="button-container">
-                            <Link to={'/form'} type="button" className="btn btn-secondary btn-md">Get Loan</Link>
+                            <Link to={'form'} type="button" className="btn btn-secondary btn-md">Get Loan</Link>
                         </div>
                     </div>
                 </div>
