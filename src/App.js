@@ -16,6 +16,7 @@ import { FinForm } from "./Pages/Home/FinForm";
 import { Login } from "./Pages/Auth/Login";
 import { Admin } from "./Pages/Auth/Admin/Admin";
 import { AdminRoot } from "./Template/AdminRoot";
+import { LoanClient } from "./Pages/Auth/Admin/LoanClient";
 
 
 const firebaseConfig = {
@@ -29,7 +30,7 @@ const firebaseConfig = {
 
 //initialize firebase
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+export const db = getFirestore(app);
 export const auth = getAuth(app);
 
 
@@ -44,16 +45,18 @@ function App() {
   const {addy} = ContextConsumer();
   
   const router = createBrowserRouter(createRoutesFromElements(
-    
+    <>
     <Route path="ejuandy" element={<Root/>}>
       <Route index element={<Home/>}/>
       <Route path='form' element={<FinForm />}/>
-      <Route path='admin' element={addy ? <AdminRoot/> :<Navigate to='ejuandy'/> }>
-        <Route index element={user ? <Admin/> : <Navigate to ='auth'/>} />
-        <Route path='auth' element={!user ? <Login/> : <Navigate to ='..' />} />
-      </Route>
-
     </Route>
+
+    <Route path='ejuandy/admin' element={addy ? <AdminRoot/> :<Navigate to='/ejuandy'/> }>
+    <Route index element={user ? <Admin/> : <Navigate to ='auth'/>} />
+    <Route path='auth' element={!user ? <Login/> : <Navigate to ='..' />} />
+    <Route path=":id" element={user ? <LoanClient /> : <Navigate to ='/ejuandy' />} />
+  </Route>
+  </>
     
   ))
   return (

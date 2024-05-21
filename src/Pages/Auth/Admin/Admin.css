@@ -1,0 +1,17 @@
+#LoanClientSection {
+    text-align: left;
+    text-transform: capitalize;
+
+    
+}
+#guarantorImage{
+    width: 30%;
+}
+.clientPassport, .governmentID{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 5px;
+    font-weight: bold;
+    margin-bottom: 7px;
+}

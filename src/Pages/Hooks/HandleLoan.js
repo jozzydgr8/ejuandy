@@ -11,7 +11,7 @@ import { addDoc, onSnapshot, query, where } from "firebase/firestore";
 
     
     const loanRequest = async(detailValue, guarantorValue, verifyValue)=>{
-        const {date, applicant, applicantHomeAddy, applicantOfficeAddy, applicantTrade, phone, repayment, appPassport, loan} = detailValue;
+        const {date, applicant, applicantHomeAddy, applicantOfficeAddy, applicantTrade, phone, email, repayment, appPassport, loan} = detailValue;
         const {guarantor, guarantorAddy, guarantorPassport} = guarantorValue;
         const {document} = verifyValue;
         const applicantImage = `images/${appPassport.file.name + v4()}`;
@@ -45,6 +45,7 @@ import { addDoc, onSnapshot, query, where } from "firebase/firestore";
 
             await addDoc(colRef, {
                 date: date.toString(),
+                email:email,
                 name: applicant,
                 homeAddress: applicantHomeAddy,
                 office: applicantOfficeAddy,
@@ -56,9 +57,11 @@ import { addDoc, onSnapshot, query, where } from "firebase/firestore";
                 guarantor:{
                     name: guarantor,
                     address: guarantorAddy,
-                    passport: guarantorUrl
+                    passport: guarantorUrl,
+                   
                 },
-                verification:verifyUrl
+                verification:verifyUrl,
+                status:'Action required'
 
 
      

@@ -2,8 +2,6 @@ import {  CheckCircleOutlined, UserOutlined, VerifiedOutlined } from '@ant-desig
 import {Button, Checkbox, DatePicker, Form, Input, Upload, Steps} from 'antd';
 import { useState } from 'react';
 import { HandleLoan } from '../Hooks/HandleLoan';
-import { onSnapshot, query, where } from 'firebase/firestore';
-import { colRef } from '../../App';
 export const Forms = ()=>{
     const [current, setCurrent] = useState(0);
     const [detailValue, setDetailValue] = useState(null);
@@ -14,22 +12,15 @@ export const Forms = ()=>{
 
     const onFinishDetails = (values)=>{
         setDetailValue(values);
-        
-        const {phone} = values
-        const q = query(colRef, where('phone', '==', phone));
-
-        onSnapshot(q, (snapshot)=>{
-        const data = [];
-        const dataRef = snapshot.docs.forEach(doc=>{
-            data.push({...doc.data(), id:doc.id})
-        });
-        console.log(data);
-        })
         setCurrent(1);
     }
 
     const changeDisable= (e)=>{
-        setVerifyDisable(e.target.checked)
+        console.log(e.target.checked);
+        setVerifyDisable( e.target.checked)
+        
+        console.log(verifyDisable);
+        
     }
    
     
@@ -112,6 +103,15 @@ const Details = ({onFinish, initialValues})=>{
                     }
                 ]} hasFeedback>
                     <Input type='number'  placeholder='put in phone number' />
+                </Form.Item>
+
+                <Form.Item name={'email'} label={'email'} rules={[
+                    {
+                        required:true,
+                        message:'please this field is required'
+                    }
+                ]} hasFeedback>
+                    <Input type='email'  placeholder='put in email' />
                 </Form.Item>
 
                 <Form.Item name={"applicantHomeAddy"} label={"Home address"} rules={[
@@ -268,11 +268,11 @@ const Verify = ({onFinish, initialValues, verifyDisable, changeDisable})=>{
                 <Form.Item wrapperCol={{span:24}}>
                     <Checkbox
                     checked={verifyDisable}
-                     onClick={changeDisable} >By clicking this you hereby accept <a href='#'>The terms and conditions</a> </Checkbox>
+                     onChange={changeDisable} >By clicking this you hereby accept <a href='#'>The terms and conditions</a> </Checkbox>
                 </Form.Item>
 
                 <Form.Item wrapperCol={{span:24}}>
-                    <Button disabled={verifyDisable} block type='primary' htmlType='submit'>submit</Button>
+                    <Button disabled={!verifyDisable} block type='primary' htmlType='submit'>submit</Button>
             </Form.Item>
          </Form>
     )

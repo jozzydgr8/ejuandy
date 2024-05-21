@@ -3,6 +3,8 @@ import { auth, colRef } from "../../../App"
 import { AuthContext } from "../../../Context/AuthContext/AuthContext"
 import { onSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import { RequestTemplate } from "./RequestTemplate";
+import { Button } from "antd";
 
 export const Admin = ()=>{
     const {dispatch} = AuthContext();
@@ -33,22 +35,16 @@ export const Admin = ()=>{
     //component
     return(
         <>
-        <div className="row">
-            <div className="col-md-8">
-                {request && request.map((request)=>(
-                    <div key={request.id}>
-                        <img src={request.profile} alt="profile-pic" />
-                        {request.name}
-                    </div>
-                ))}
-                  <button onClick={logOut}>sign out</button>
+        <div>
+            <div>
+                {request && 
+                    <RequestTemplate request = {request}/>
+                }
+                  <Button type="primary" onClick={logOut}>sign out</Button>
 
             </div>
             {/* first grid */}
 
-            <div className="col-md-4">
-                second grid
-            </div>
         </div>
         </>
     )
