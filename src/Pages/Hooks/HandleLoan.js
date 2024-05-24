@@ -11,22 +11,22 @@ import { addDoc, onSnapshot, query, where } from "firebase/firestore";
 
     
     const loanRequest = async(detailValue, guarantorValue, verifyValue)=>{
-        const {date, applicant, applicantHomeAddy, applicantOfficeAddy, applicantTrade, phone, email, repayment, appPassport, loan} = detailValue;
-        const {guarantor, guarantorAddy, guarantorPassport} = guarantorValue;
+        const { applicant, applicantHomeAddy, applicantOfficeAddy, applicantTrade, phone, email, repayment, appPassport, loan} = detailValue;
+        const {guarantor, guarantorAddy, guarantorPassport, guarantorPhone} = guarantorValue;
         const {document} = verifyValue;
         const applicantImage = `images/${appPassport.file.name + v4()}`;
         const guarantorImage = `images/${guarantorPassport.file.name + v4()}`;
         const verification = `images/${document.file.name + v4()}`;
 
-        const q = query(colRef, where('phone', '==', phone));
+        // const q = query(colRef, where('phone', '==', phone));
 
-        onSnapshot(q, (snapshot)=>{
-        const data = [];
-        const dataRef = snapshot.docs.forEach(doc=>{
-            data.push({...doc.data(), id:doc.id})
-        });
-        console.log(data);
-        })
+        // onSnapshot(q, (snapshot)=>{
+        // const data = [];
+        // const dataRef = snapshot.docs.forEach(doc=>{
+        //     data.push({...doc.data(), id:doc.id})
+        // });
+        // console.log(data);
+        // })
 
         try{
             const appRef = ref(storage, applicantImage)
@@ -44,7 +44,7 @@ import { addDoc, onSnapshot, query, where } from "firebase/firestore";
 
 
             await addDoc(colRef, {
-                date: date.toString(),
+                date: JSON.stringify(new Date()),
                 email:email,
                 name: applicant,
                 homeAddress: applicantHomeAddy,
@@ -58,10 +58,15 @@ import { addDoc, onSnapshot, query, where } from "firebase/firestore";
                     name: guarantor,
                     address: guarantorAddy,
                     passport: guarantorUrl,
+                    guarantorPath: guarantorImage,
+                    guarantorPhone: guarantorPhone
                    
                 },
                 verification:verifyUrl,
-                status:'Action required'
+                status:'Action required',
+                applicantPath: applicantImage,
+                verificationPath:verification
+                
 
 
      

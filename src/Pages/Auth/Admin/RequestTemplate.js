@@ -1,8 +1,23 @@
 import { Link, useNavigate } from 'react-router-dom';
 import './Admin.css';
 import {Table} from 'antd';
+import { doc, setDoc } from 'firebase/firestore';
+import { db } from '../../../App';
 export const RequestTemplate = ({request})=>{
     const navigate = useNavigate()
+
+    const handleStatus =async(id)=>{
+        const docRef= doc(db, 'Data', id);
+
+        try{
+            await setDoc(docRef, {
+                status:'In progress'
+            },{merge:true});
+            navigate(`${id}`)
+        }catch (error){
+            console.error('error updating status', error)
+        }
+    }
  
 
     const columns = [
@@ -53,7 +68,7 @@ export const RequestTemplate = ({request})=>{
                     columns={columns}
                     dataSource={request}
                     onRow={(record)=>({
-                        onClick:()=>{navigate(`${record.id}`)}
+                        onClick:()=>{handleStatus(record.id)}
                     })}
                 >
 

@@ -78,14 +78,6 @@ export const Forms = ()=>{
 const Details = ({onFinish, initialValues})=>{
     return(
         <Form labelCol={{span:5}} onFinish={onFinish} initialValues={initialValues} >
-                <Form.Item name={'date'} label={'Date'} rules={[
-                    {
-                        required:true,
-                        message:'please this field is required'
-                    }
-                ]} hasFeedback>
-                    <DatePicker style={{width:'100%'}} picker='date' placeholder='select date' />
-                </Form.Item>
 
                 <Form.Item name={'applicant'} label={"Applicant's Full Name"} rules={[
                     {
@@ -150,7 +142,7 @@ const Details = ({onFinish, initialValues})=>{
                         message:'please this field is required'
                     }
                 ]} hasFeedback>
-                    <Input type='number' placeholder='Type in your loan amount' />
+                    <Input type='number' placeholder='Type in your loan amount in naira' />
 
                 </Form.Item>
 
@@ -177,7 +169,7 @@ const Details = ({onFinish, initialValues})=>{
                     accept='image/*'
                     listType='picture'
                     >
-                        <Button>upload applicant's passport</Button>
+                        <Button>upload applicant's passport please let picture be bold and clear</Button>
                     </Upload.Dragger>
                 </Form.Item>
 
@@ -211,6 +203,15 @@ const Guarantor = ({onFinish, initialValues})=>{
                     <Input placeholder='put in address of guarantor'/>
                 </Form.Item>
 
+                <Form.Item name={'guarantorPhone'} label={'Guarantor phone'} rules={[
+                    {
+                        required:true,
+                        message:'please this field is required'
+                    }
+                ]} hasFeedback>
+                    <Input type='number'  placeholder='put in guarantor phone number' />
+                </Form.Item>
+
                 
                 <Form.Item
                 label={'Guarantor passport'}
@@ -227,7 +228,7 @@ const Guarantor = ({onFinish, initialValues})=>{
                     listType='picture'
                     maxCount={1} 
                     >
-                        <Button>Upload guarantor's passport</Button>
+                        <Button>Upload guarantor's passport please let picture be bold and clear</Button>
                     </Upload.Dragger>
                 </Form.Item>
 

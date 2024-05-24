@@ -41,8 +41,13 @@ export const colRef = collection(db, 'Data');
 
 
 function App() {
-  const {user} = AuthContext();
-  const {addy} = ContextConsumer();
+  const {user, loading} = AuthContext();
+  const {addy, loading:addyLoading} = ContextConsumer();
+
+  if( loading){
+    return <div>...loading</div>
+  }
+  
   
   const router = createBrowserRouter(createRoutesFromElements(
     <>

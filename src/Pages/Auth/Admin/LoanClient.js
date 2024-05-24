@@ -10,10 +10,10 @@ export const LoanClient = ()=>{
 
     useEffect(()=>{
         const docRef = doc(db, 'Data', id);
-        getDoc(docRef)
-            .then(docSnap=>{
-                setLoanData({...docSnap.data(), id: docSnap.id});
-            })
+        onSnapshot(docRef, (docSnap)=>{
+            setLoanData({...docSnap.data(), id: docSnap.id});
+        } );
+
     },[id])
 console.log(loanData)
     return(

@@ -15,3 +15,16 @@
     font-weight: bold;
     margin-bottom: 7px;
 }
+/* #task{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+} */
+
+#task form > input{
+    background: transparent;
+    padding: 5px;
+    border-radius: 5px;
+    margin: 1% 3%;
+}
