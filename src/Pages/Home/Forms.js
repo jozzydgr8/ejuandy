@@ -2,6 +2,7 @@ import {  CheckCircleOutlined, UserOutlined, VerifiedOutlined } from '@ant-desig
 import {Button, Checkbox, DatePicker, Form, Input, Upload, Steps} from 'antd';
 import { useState } from 'react';
 import { HandleLoan } from '../Hooks/HandleLoan';
+import { NavLink } from 'react-router-dom';
 export const Forms = ()=>{
     const [current, setCurrent] = useState(0);
     const [detailValue, setDetailValue] = useState(null);
@@ -31,9 +32,14 @@ export const Forms = ()=>{
     }
     
     const onFinishVerify = (values)=>{
-        setCurrent(3);
-        setVerifyValue(values)
+        setVerifyValue(values);
         loanRequest(detailValue, guarantorValue, values)
+            .then(()=>{
+                setCurrent(3);
+            }).catch(error=>{
+                console.error(error)
+            })
+            ;
 
     }
 
@@ -64,7 +70,7 @@ export const Forms = ()=>{
                 <Steps onChange={setCurrent} current={current}>
                     <Steps.Step disabled={isStepDisbaled(0)} title='Application' icon={<UserOutlined />}/>
                     <Steps.Step disabled={isStepDisbaled(1)} title='Guarantor' icon={<UserOutlined />}/>
-                    <Steps.Step disabled={isStepDisbaled(2)} title='verify' icon={<VerifiedOutlined />}/>
+                    <Steps.Step disabled={isStepDisbaled(0)} title='verify' icon={<VerifiedOutlined />}/>
                     <Steps.Step disabled={isStepDisbaled(3)} title='finish' icon={<CheckCircleOutlined/>} />
                 </Steps>
 
@@ -284,7 +290,7 @@ const Finish = ()=>{
         <div>
         <h1>you are all set <CheckCircleOutlined/> </h1>
         please be patient while we verify your details we will reach out to you as soon as possible!
-        <Button block type='primary' htmlType='submit' >getLoan</Button>
+        <NavLink to='/ejuandy' block className='btn btn-primary' htmlType='submit' >finish</NavLink>
         </div>
     )
 }

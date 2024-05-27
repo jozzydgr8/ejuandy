@@ -73,7 +73,7 @@ import { addDoc, onSnapshot, query, where } from "firebase/firestore";
                 
             })
 
-            console.log(appPassport)
+            console.log('submitted')
 
             
         }catch(error){

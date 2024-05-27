@@ -1,168 +1,40 @@
-import { addDoc, collection, deleteDoc, doc, setDoc, updateDoc } from "firebase/firestore";
-import {db, storage} from '../../../App'
-import { useState } from "react";
-import { deleteObject, getMetadata, ref } from "firebase/storage";
+import {  doc, setDoc } from "firebase/firestore";
+import { db} from '../../../App'
+import { useContext, useState } from "react";
 
-export const LoanClientTemp = ({loanData})=>{
+import { HandleReapplyHook } from "../../Hooks/HandleReapplyHook";
+import { HandleOwingHook } from "../../Hooks/HandleOwingHook";
+ import { HandleBalanceHook } from "../../Hooks/HandleBalanceHook";
+import { ContextProvider } from "./LoanClient";
+
+export const LoanClientTemp = ()=>{
     const [loanAmout, setLoanAmount] = useState(null);
     const [amountBalance, setAmoutBalance] = useState(null);
+    const {handleReApply} = HandleReapplyHook();
+    const {handleOwing} = HandleOwingHook();
+     const {handleBalance} = HandleBalanceHook();
+    
+    const context = useContext(ContextProvider);
+    const owing = handleOwing(context.amountBalanced, context.amountGranted, context.repaymentDate, context);
+    console.log(context)
+    console.log(owing)
 
-    const settledDoc ={
-        name:loanData.name,
-        phone:loanData.phone,
-        repaymentDate: loanData.repaymentDate,
-        amountGranted: loanData.amountGranted,
-        amountBalanced: loanData.amountBalanced,
-        address: loanData.address,
-        trade: loanData.trade
-        
-
-    }
-
-    //logic for handleReApply
-    const handleReApply = async ()=>{
-        const secColRef= collection(db, 'settled');
-
-        try{
-          const docAdd =  await addDoc(secColRef,loanData);
-
-          if(docAdd){
-            const fileStorage = ref(storage, loanData.passport);
-            const guarantorFileStorage = ref(storage, loanData.guarantor.passport);
-            const validation = ref(storage, loanData.verification);
-            const metaData = getMetadata(fileStorage);
-            const guarantorMetaData= getMetadata(guarantorFileStorage);
-            const validationMetaData= getMetadata(validation);
-            if(metaData){
-                deleteObject(fileStorage)
-            };
-            if(guarantorMetaData){
-                deleteObject(guarantorFileStorage)
-            };
-            if(validationMetaData){
-                deleteObject(validation)
-            };
-
-            
-
-          }
-
-
-
-
-        }catch (error){
-
-            console.error('error adding doc' + error);
-
-        }
-
-        const docRef = doc(db, 'Data', loanData.id);
-        await deleteDoc(docRef);
-        console.log('deleted items successfully')
-
-        
-
-
-    }
-
-    //algebra for define owing amount
-    const owing = loanData.amountBalanced ? loanData.amountGranted - loanData.amountBalanced : loanData.amountGranted ? loanData.amountGranted : <span>client hasnt received loan</span>
-   
-    //code logic to find out default in repayment date stamps
-    const dateStampsArray = loanData && loanData.repaymentDate.split(',');
-
-    const dateStamp1 = dateStampsArray.slice(1, 2);
-    const dateStamp2 = dateStampsArray.slice(3,5);
-   
-  
-
-    const date1 = new Date(dateStamp1);
-    const date2 = new Date(dateStamp2);
-
-    const currentDate = new Date();
-
-    const diff = currentDate - date2;
-    const difference = diff / (1000 * 3600 * 24)
-
-    // function to output owing invluding default
-    const handleOwing= ()=>{
-        if (difference <= 0){
-            return owing
-        }
-        if (difference  <= 3){
-            if (typeof owing === 'number'){
-            return ((5/100)*owing) + owing;
-         } 
-         return
-        }
-        if (difference >=4){
-            if(typeof owing === 'number'){
-                return ((10/100)*owing) + owing;
-            }
-
-            return
-        }
-    }
-   
-
-    // function to handle balance
-    const handleBalance = async (e)=>{
+    const balance =  (e)=>{
         e.preventDefault();
-        if (amountBalance == 0 || amountBalance == null){
-            return
-        }
-        // define document
-        const documentRef = doc(db, 'Data', loanData.id);
-        //update loan with proper arithmetic
-        const updateLoan = loanData.amountBalanced ? parseFloat(loanData.amountBalanced) + parseFloat(amountBalance): amountBalance
-        
-        //logic if debt has been settled
-        if(owing <= 0){
 
-        try{
-            await setDoc(documentRef, {
-                amountBalanced: updateLoan,
-                status: 'Settled',
-                repaymentDate: JSON.stringify(new Date()),
-                amountBalanced: JSON.stringify(handleOwing())
-            }, {merge:true});
-
-            console.log('balance has been updated')
-        }catch (error){
-            console.error('error setting balance:', error)
-        }
-
+         handleBalance( amountBalance )
     }
-
-    //logic if client is still owing
-    if(owing > 0){
-
-        try{
-            await setDoc(documentRef, {
-                amountBalanced: updateLoan
-            }, {merge:true});
-
-            console.log('balance has been updated')
-        }catch (error){
-            console.error('error setting balance:', error)
-        }
-
+    const deleteClient = async ()=>{
+        await handleReApply(context)
     }
-
-
- 
-
-    }
-
-
     //amount grant logic
 
     const grant = async(e)=>{
         e.preventDefault();
-        if (loanAmout == 0 || loanAmout == null){
+        if (loanAmout <= 0 || loanAmout == null){
             return
         }
-        const documentRef = doc(db, 'Data', loanData.id);
+        const documentRef = doc(db, 'Data', context.id);
         await setDoc(documentRef,{
             amountGranted:parseFloat(loanAmout),
             status:'Indebt'
@@ -175,11 +47,11 @@ export const LoanClientTemp = ({loanData})=>{
             <div className='row'>
                 <div className="col-md-6 clientPassport">
                     <header>passport photo</header>
-                    <img src={loanData.passport} alt="clientPAss" />
+                    <img src={context.passport} alt="clientPAss" />
                 </div>
                 <div className="col-md-6 governmentID">
                     <header>governmentID</header>
-                    <img src={loanData.verification} alt='verification' />
+                    <img src={context.verification} alt='verification' />
                 </div>
             </div>
             <hr/>
@@ -187,11 +59,11 @@ export const LoanClientTemp = ({loanData})=>{
             <div className="details">
                 <h1>Details</h1>
                 <div className="">
-                        <p>status: {loanData.status}</p>
-                        <p>Name: {loanData.name}</p>
-                        <p>trade: {loanData.trade}</p>
-                        <p>Loan Amount in naira: {loanData.loanAmount}</p>
-                        <p>repayment period: {loanData.repaymentDate}</p>
+                        <p>status: {context.status}</p>
+                        <p>Name: {context.name}</p>
+                        <p>trade: {context.trade}</p>
+                        <p>Loan Amount in naira: {context.loanAmount}</p>
+                        <p>repayment period: {context.repaymentDate}</p>
                 </div>
 
 
@@ -201,10 +73,10 @@ export const LoanClientTemp = ({loanData})=>{
             {/* second div */}
             <div className="contact">
                 <h1>Contact</h1>
-               <p> phone: <a href={`tel:${loanData.phone}`}>{loanData.phone} call now</a> </p>
-                <p> email: <a href={`mailto:${loanData.email}`}>{loanData.email}</a> </p>
-                <p> home Address: {loanData.homeAddress}</p>
-                <p>office Address: {loanData.office}</p>
+               <p> phone: <a href={`tel:${context.phone}`}>{context.phone} call now</a> </p>
+                <p> email: <a href={`mailto:${context.email}`}>{context.email}</a> </p>
+                <p> home Address: {context.homeAddress}</p>
+                <p>office Address: {context.office}</p>
             </div>
                 {/* /* another div*/}
             <div>
@@ -212,15 +84,15 @@ export const LoanClientTemp = ({loanData})=>{
                 
                     <div>
                         {
-                            loanData.guarantor && 
+                            context.guarantor && 
                                
                                     <div className="">
-                                    <img src={loanData.guarantor.passport} alt="guarantorimage" id="guarantorImage"/>
+                                    <img src={context.guarantor.passport} alt="guarantorimage" id="guarantorImage"/>
                                     
                                 
-                                    <p>Name: {loanData.guarantor.name}</p>
-                                    <p>address: {loanData.guarantor.address}</p>
-                                    <p>phone:{loanData.guarantor.phone}</p>
+                                    <p>Name: {context.guarantor.name}</p>
+                                    <p>address: {context.guarantor.address}</p>
+                                    <p>phone:{context.guarantor.phone}</p>
                                     
                                     </div>
                                     
@@ -234,22 +106,22 @@ export const LoanClientTemp = ({loanData})=>{
                     <div className="row">
 
                         {
-                            loanData.amountGranted && loanData.amountGranted !== 0 && loanData.status !== 'Settled'?                    
+                            context.amountGranted && context.amountGranted != 0 && context.status !='Settled'?                    
                             <div className="col-md-4">
-                                loan amount: {loanData.amountGranted}
+                                loan amount: {context.amountGranted}
                             </div>:
                             <form className="col-md-4" onSubmit={grant}>
                             <input type="number" placeholder='amount loaned in naira' onChange={(e)=>{setLoanAmount( e.target.value)}}/>
                                 <button type="submit" className=" btn btn-primary">submit</button>
-                                {loanData.status == 'settled' && <div>loan of {loanData.amountGranted} settled including default  <p>since all loans are settled want to delete client </p><button onClick={handleReApply} className="btn btn-primary"> delete so client can reapply </button></div>}
+                                {context.status == 'Settled' && <div>loan of {context.amountGranted} settled including default  <p>since all loans are settled want to delete client </p><button onClick={deleteClient} className="btn btn-primary"> delete so client can reapply </button></div>}
                             </form>
                         }
 
 
                     <div className="col-md-4">
-                        amount balanced = {loanData.amountBalanced}
+                        amount balanced = {context.amountBalanced}
 
-                        <form onSubmit={handleBalance} >
+                        <form onSubmit={balance} >
                         <input type="number" placeholder="amount balanced" onChange={(e)=>setAmoutBalance(e.target.value)}/>
                         <button type='submit' className=" btn btn-primary">submit</button>
                         </form>
@@ -257,7 +129,7 @@ export const LoanClientTemp = ({loanData})=>{
 
                     <div className="col-md-4">
                         owing :{
-                            handleOwing() 
+                           owing
                         }
                         <p>there is a 5% on default and 4x default attracts 10% of loan</p>
                     </div>

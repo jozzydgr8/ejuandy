@@ -6,17 +6,22 @@ import { db } from '../../../App';
 export const RequestTemplate = ({request})=>{
     const navigate = useNavigate()
 
-    const handleStatus =async(id)=>{
-        const docRef= doc(db, 'Data', id);
+    const handleStatus =async(record)=>{
+        const docRef= doc(db, 'Data', record.id);
 
         try{
+        if(record.status === 'Action required'){
             await setDoc(docRef, {
                 status:'In progress'
             },{merge:true});
-            navigate(`${id}`)
+            
+        }
+
+         navigate(`${record.id}`)
         }catch (error){
             console.error('error updating status', error)
         }
+   
     }
  
 
@@ -68,7 +73,7 @@ export const RequestTemplate = ({request})=>{
                     columns={columns}
                     dataSource={request}
                     onRow={(record)=>({
-                        onClick:()=>{handleStatus(record.id)}
+                        onClick:()=>{handleStatus(record)}
                     })}
                 >
 
@@ -90,27 +95,5 @@ export const RequestTemplate = ({request})=>{
 
 
 
-
-
-
-
-
-
-
-
-               {/* <div key={request.id} className="clientDiv row">
-                    <div className='col-6'>
-                    Name: {request.name}
-                    <p>loan-amount: {request.loanAmount}</p>
-
-                    <div> <a href={`tel:${request.phone}`} > call {request.name} </a> </div>
-                    </div>
-
-                    //seconf grid
-                    <div className='col-6'>
-                        <img src={request.passport} alt='passport' />
-                    </div>
-
-                </div> */}
 
                 
