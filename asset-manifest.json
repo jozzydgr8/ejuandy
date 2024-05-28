@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/ejuandy/static/css/main.058062ab.css",
-    "main.js": "/ejuandy/static/js/main.43d77808.js",
+    "main.css": "/ejuandy/static/css/main.b0ac5884.css",
+    "main.js": "/ejuandy/static/js/main.0c16e416.js",
     "static/js/453.2b24a44d.chunk.js": "/ejuandy/static/js/453.2b24a44d.chunk.js",
     "static/media/border-from-stationery-technologies-with-coffee.jpg": "/ejuandy/static/media/border-from-stationery-technologies-with-coffee.530d99ed6b064d6f8b86.jpg",
     "static/media/correctvideobackground.jpg": "/ejuandy/static/media/correctvideobackground.b04dd116f56ebfcc005e.jpg",
@@ -18,12 +18,12 @@
     "static/media/Netflix-img.png": "/ejuandy/static/media/Netflix-img.303904f75553a51bbf31.png",
     "static/media/africa-magic.png": "/ejuandy/static/media/africa-magic.0655dc40afa27a1e1d31.png",
     "index.html": "/ejuandy/index.html",
-    "main.058062ab.css.map": "/ejuandy/static/css/main.058062ab.css.map",
-    "main.43d77808.js.map": "/ejuandy/static/js/main.43d77808.js.map",
+    "main.b0ac5884.css.map": "/ejuandy/static/css/main.b0ac5884.css.map",
+    "main.0c16e416.js.map": "/ejuandy/static/js/main.0c16e416.js.map",
     "453.2b24a44d.chunk.js.map": "/ejuandy/static/js/453.2b24a44d.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.058062ab.css",
-    "static/js/main.43d77808.js"
+    "static/css/main.b0ac5884.css",
+    "static/js/main.0c16e416.js"
   ]
 }
