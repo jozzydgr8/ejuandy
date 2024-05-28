@@ -1,31 +1,36 @@
 
 import { Form, Input, Button } from 'antd';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
 import { auth } from '../../App';
 import { AuthContext } from '../../Context/AuthContext/AuthContext';
 import { ContextConsumer } from '../../Context/IpCon/ContextConsumer';
 import { NavLink } from 'react-router-dom';
-import { useState } from 'react';
 
-export const Login = ()=>{
+
+
+
+export const SignUp = ()=>{
     const {dispatch} = AuthContext();
     const {addy} = ContextConsumer();
-    const [message, setMessage] = useState(null)
-    const signIn = (values)=>{
+    const signUp = (values)=>{
         const {email, password} = values;
-        signInWithEmailAndPassword(auth, email, password)
-            .then(userCredential=>{
-                localStorage.setItem('user',JSON.stringify(userCredential.user));
-             dispatch({type:'AUTH', payload:userCredential.user})
-            }).catch(error=>{
-                console.log('sign in error', error)
-                setMessage('email or password in correct')
+        createUserWithEmailAndPassword(auth, email, password)
+            .then(cred=>{
+                sendEmailVerification(cred.user)
+                .then(()=>{console.log('email verification sent')})
+                .catch(error=>console.error(error.message, 'error sending verification'))
+                localStorage.setItem('user',JSON.stringify(cred.user));
+             dispatch({type:'AUTH', payload:cred.user})
+            })
+            .catch(error=>{
+                console.log('sign up error', error)
+                alert('error')
             })
     }
     return(
         <div>
-            <h1>regsitration required for loan application</h1>
-            <Form labelCol={{span:5}} wrapperCol={{span:14}} onFinish={signIn}>
+            <h1>regsitration needed to apply for loan</h1>
+            <Form labelCol={{span:5}} wrapperCol={{span:14}} onFinish={signUp}>
                 <Form.Item
                     name={'email'}
                     label={'Email'}
@@ -65,8 +70,7 @@ export const Login = ()=>{
                 </Form.Item>
 
             </Form>
-            {!addy ? <div>or <NavLink to ='/ejuandy/signUp'>SignUp </NavLink></div>:null }
-            {message && <p>{message}</p>}
+            {!addy ? <div>or<NavLink to ='/ejuandy/logIn'>login</NavLink></div>:null }
         </div>
     )
 }

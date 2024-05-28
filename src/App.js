@@ -17,6 +17,8 @@ import { Login } from "./Pages/Auth/Login";
 import { Admin } from "./Pages/Auth/Admin/Admin";
 import { AdminRoot } from "./Template/AdminRoot";
 import { LoanClient } from "./Pages/Auth/Admin/LoanClient";
+import { SignUp } from "./Pages/Auth/SignUp";
+import { VerifyEmail } from "./Pages/Home/VerifyEmail";
 
 
 const firebaseConfig = {
@@ -53,7 +55,10 @@ function App() {
     <>
     <Route path="ejuandy" element={<Root/>}>
       <Route index element={<Home/>}/>
-      <Route path='form' element={<FinForm />}/>
+      <Route path='form' element={user ? user.emailVerified ? <FinForm /> : <Navigate to={'/ejuandy/verify'} />:<Navigate to ='/ejuandy/logIn'/>}/>
+      <Route path='logIn' element={!user ? <Login />: <Navigate to={'/ejuandy/form'} />}/>
+      <Route path="signUp" element ={!user ? <SignUp/>: <Navigate to={'/ejuandy/form'} />} />
+      <Route path = 'verify' element = {user && !user.emailVerified ? <VerifyEmail />:<Navigate to ={'/ejuandy/form'}/>} />
     </Route>
 
     <Route path='ejuandy/admin' element={addy ? <AdminRoot/> :<Navigate to='/ejuandy'/> }>

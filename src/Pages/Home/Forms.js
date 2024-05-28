@@ -2,14 +2,30 @@ import {  CheckCircleOutlined, UserOutlined, VerifiedOutlined } from '@ant-desig
 import {Button, Checkbox, DatePicker, Form, Input, Upload, Steps} from 'antd';
 import { useState } from 'react';
 import { HandleLoan } from '../Hooks/HandleLoan';
-import { NavLink } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
+import { signOut } from 'firebase/auth';
+import { auth } from '../../App';
+import { AuthContext } from '../../Context/AuthContext/AuthContext';
 export const Forms = ()=>{
     const [current, setCurrent] = useState(0);
     const [detailValue, setDetailValue] = useState(null);
     const [guarantorValue, setGuarantorValue] = useState(null);
     const [verifyValue, setVerifyValue] = useState(null);
     const [verifyDisable, setVerifyDisable] = useState(false);
-    const{loanRequest} = HandleLoan()
+    const [error,setError] = useState(null)
+    const{loanRequest} = HandleLoan();
+    const {dispatch} = AuthContext();
+    const navigate = useNavigate()
+
+    const logOut = async ()=>{
+        signOut(auth)
+             .then(()=>{   
+            navigate('/ejuandy')    
+            localStorage.removeItem('user');
+            dispatch({type: 'AUTH', payload:null})
+        }
+        )
+    }
 
     const onFinishDetails = (values)=>{
         setDetailValue(values);
@@ -37,7 +53,9 @@ export const Forms = ()=>{
             .then(()=>{
                 setCurrent(3);
             }).catch(error=>{
-                console.error(error)
+                setError(error.message);
+                console.error(error.message);
+                
             })
             ;
 
@@ -47,7 +65,7 @@ export const Forms = ()=>{
         <Details onFinish={onFinishDetails} initialValues={detailValue} />,
         <Guarantor onFinish={onFinishGuarantor} initialValues={guarantorValue} />,
         <Verify onFinish={onFinishVerify} initialValues={verifyValue} verifyDisable={verifyDisable} changeDisable={changeDisable} />,
-        <Finish />
+        <Finish logOut={logOut} />
     ]
 
     const isStepDisbaled= (stepNumber)=>{
@@ -67,13 +85,14 @@ export const Forms = ()=>{
     return(
         <section>
             <div className='container-fluid'>
+
                 <Steps onChange={setCurrent} current={current}>
                     <Steps.Step disabled={isStepDisbaled(0)} title='Application' icon={<UserOutlined />}/>
                     <Steps.Step disabled={isStepDisbaled(1)} title='Guarantor' icon={<UserOutlined />}/>
                     <Steps.Step disabled={isStepDisbaled(0)} title='verify' icon={<VerifiedOutlined />}/>
-                    <Steps.Step disabled={isStepDisbaled(3)} title='finish' icon={<CheckCircleOutlined/>} />
+                    <Steps.Step disabled={isStepDisbaled(0)} title='finish' icon={<CheckCircleOutlined/>} />
                 </Steps>
-
+                    {error && <p>{error}</p>}
                 {displayForms[current]}
                 
             </div>
@@ -285,12 +304,12 @@ const Verify = ({onFinish, initialValues, verifyDisable, changeDisable})=>{
     )
 }
 
-const Finish = ()=>{
+const Finish = ({logOut})=>{
     return(
         <div>
         <h1>you are all set <CheckCircleOutlined/> </h1>
         please be patient while we verify your details we will reach out to you as soon as possible!
-        <NavLink to='/ejuandy' block className='btn btn-primary' htmlType='submit' >finish</NavLink>
+        <a onClick={logOut}  block className='btn btn-primary' htmlType='submit' >finish</a>
         </div>
     )
 }

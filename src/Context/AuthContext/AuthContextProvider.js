@@ -32,14 +32,35 @@ export const AuthContextProvider = ({children})=>{
         }else{dispatch({type:'SET-LOADING', payload:false});}
         const unSubscribe = onAuthStateChanged(auth, (user)=>{
                             if(user){
-                                dispatch({type:'AUTH', payload: user})
-                                console.log('sign in')
-                            }else{
+                                dispatch({type:'AUTH', payload: user});
+                                console.log('sign in');
+                            }
+
+                            else{
                                 dispatch({type:'AUTH', payload:null})
                                 console.log('not signed in')
                             }
                         });
-            return ()=> unSubscribe();  
+
+                        const checkEmailVerification = async ()=>{
+                            const user = auth.currentUser;
+                            if (user){
+                                await user.reload();
+                                if (user.emailVerified){
+                                    dispatch({type: 'AUTH', payload: user});
+                                    localStorage.setItem('user', JSON.stringify(user));
+                                    console.log('email verified')
+                                    clearInterval(intervalId);
+                                }
+                            }
+                        }
+                        const intervalId = setInterval(checkEmailVerification, 5000);
+                        //check emailveri every 5 seconds
+              return ()=> {
+                unSubscribe();
+                clearInterval(intervalId);
+            };  
+            
     },[]);
 
     return(
