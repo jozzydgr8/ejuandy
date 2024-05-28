@@ -1,10 +1,10 @@
 
 import { Form, Input, Button, Spin } from 'antd';
-import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
+import { createUserWithEmailAndPassword, deleteUser, sendEmailVerification, signOut } from 'firebase/auth';
 import { auth } from '../../App';
 import { AuthContext } from '../../Context/AuthContext/AuthContext';
 import { ContextConsumer } from '../../Context/IpCon/ContextConsumer';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 
@@ -15,10 +15,19 @@ export const SignUp = ()=>{
     const {dispatch} = AuthContext();
     const {addy} = ContextConsumer();
     const [disable, setDisable]= useState(false);
-    const [message, setMessage]= useState(null)
+    const [message, setMessage]= useState(null);
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    
     const signUp = (values)=>{
         setDisable(true);
         const {email, password} = values;
+        if(location.pathname === process.env.REACT_APP_restrictedRoute){
+                    alert('error cannnot create account')
+                    setDisable(false)
+                    navigate('/ejuandy')
+        }else{
         createUserWithEmailAndPassword(auth, email, password)
             .then(cred=>{
                 sendEmailVerification(cred.user)
@@ -34,6 +43,8 @@ export const SignUp = ()=>{
                 setDisable(false);
 
             });
+
+        }
 
            
     }
@@ -84,9 +95,9 @@ export const SignUp = ()=>{
                 </Form.Item>
 
             </Form>
-            {!addy ? <div>or<NavLink  to ='/ejuandy/logIn'>login</NavLink></div>:null }
+            {location.pathname !== process.env.REACT_APP_restrictedRoute && <div>or<NavLink  to ='/ejuandy/logIn'>login</NavLink></div>}
             {message && <div>{message}</div>}
-            
+            <NavLink to={'/ejuandy'} >go back to homePage</NavLink>
             </>
         }
         </div>
