@@ -295,3 +295,17 @@ img{
 .media-grid{
     margin-top: 4%;
 }
+
+/* .isDisabled{
+    opacity: 0.5;
+    pointer-events: none;
+} */
+.isLoading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: none;
+
+
+}

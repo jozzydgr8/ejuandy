@@ -1,5 +1,5 @@
 import {  CheckCircleOutlined, UserOutlined, VerifiedOutlined } from '@ant-design/icons';
-import {Button, Checkbox, DatePicker, Form, Input, Upload, Steps} from 'antd';
+import {Button, Checkbox, DatePicker, Form, Input, Upload, Steps, Spin} from 'antd';
 import { useState } from 'react';
 import { HandleLoan } from '../Hooks/HandleLoan';
 import {  useNavigate } from 'react-router-dom';
@@ -12,7 +12,8 @@ export const Forms = ()=>{
     const [guarantorValue, setGuarantorValue] = useState(null);
     const [verifyValue, setVerifyValue] = useState(null);
     const [verifyDisable, setVerifyDisable] = useState(false);
-    const [error,setError] = useState(null)
+    const [error,setError] = useState(null);
+    const [disable, setDisable] = useState(false);
     const{loanRequest} = HandleLoan();
     const {dispatch} = AuthContext();
     const navigate = useNavigate()
@@ -48,12 +49,16 @@ export const Forms = ()=>{
     }
     
     const onFinishVerify = (values)=>{
+        setDisable(true);
         setVerifyValue(values);
+        
         loanRequest(detailValue, guarantorValue, values)
             .then(()=>{
                 setCurrent(3);
+                setDisable(false);
             }).catch(error=>{
                 setError(error.message);
+                setDisable(false)
                 console.error(error.message);
                 
             })
@@ -85,15 +90,20 @@ export const Forms = ()=>{
     return(
         <section>
             <div className='container-fluid'>
-
-                <Steps onChange={setCurrent} current={current}>
+                {
+                    disable ? <Spin size='large' className='isLoading' />:
+                    <>
+                 <Steps onChange={setCurrent} current={current}>
                     <Steps.Step disabled={isStepDisbaled(0)} title='Application' icon={<UserOutlined />}/>
                     <Steps.Step disabled={isStepDisbaled(1)} title='Guarantor' icon={<UserOutlined />}/>
                     <Steps.Step disabled={isStepDisbaled(0)} title='verify' icon={<VerifiedOutlined />}/>
                     <Steps.Step disabled={isStepDisbaled(0)} title='finish' icon={<CheckCircleOutlined/>} />
                 </Steps>
                     {error && <p>{error}</p>}
-                {displayForms[current]}
+                    {displayForms[current]}
+                    </>
+                }
+
                 
             </div>
         </section>

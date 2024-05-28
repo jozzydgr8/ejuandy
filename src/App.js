@@ -19,6 +19,7 @@ import { AdminRoot } from "./Template/AdminRoot";
 import { LoanClient } from "./Pages/Auth/Admin/LoanClient";
 import { SignUp } from "./Pages/Auth/SignUp";
 import { VerifyEmail } from "./Pages/Home/VerifyEmail";
+import { Spin } from "antd";
 
 
 const firebaseConfig = {
@@ -47,7 +48,7 @@ function App() {
   const {addy, loading:addyLoading} = ContextConsumer();
 
   if( loading){
-    return <div>...loading</div>
+    return <Spin size="large" className="isLoading" />
   }
   
   
