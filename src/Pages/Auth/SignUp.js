@@ -33,7 +33,7 @@ export const SignUp = ()=>{
                 sendEmailVerification(cred.user)
                 .then(()=>{console.log('email verification sent')})
                 .catch(error=>console.error(error.message, 'error sending verification'))
-                localStorage.setItem('user',JSON.stringify(cred.user));
+               
              dispatch({type:'AUTH', payload:cred.user});
              setDisable(false);
             })
@@ -97,7 +97,7 @@ export const SignUp = ()=>{
             </Form>
             {location.pathname !== process.env.REACT_APP_restrictedRoute && <div>or<NavLink  to ='/ejuandy/logIn'>login</NavLink></div>}
             {message && <div>{message}</div>}
-            <NavLink to={'/ejuandy'} >go back to homePage</NavLink>
+            <button className='btn' onClick={()=>{navigate('/ejuandy')}} >go back to homePage</button>
             </>
         }
         </div>

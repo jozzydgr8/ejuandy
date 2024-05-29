@@ -1,4 +1,4 @@
-import {  CheckCircleOutlined, UserOutlined, VerifiedOutlined } from '@ant-design/icons';
+import {  CheckCircleOutlined, UploadOutlined, UserOutlined, VerifiedOutlined } from '@ant-design/icons';
 import {Button, Checkbox, DatePicker, Form, Input, Upload, Steps, Spin} from 'antd';
 import { useState } from 'react';
 import { HandleLoan } from '../Hooks/HandleLoan';
@@ -12,17 +12,36 @@ export const Forms = ()=>{
     const [guarantorValue, setGuarantorValue] = useState(null);
     const [verifyValue, setVerifyValue] = useState(null);
     const [verifyDisable, setVerifyDisable] = useState(false);
+    const [verifyGuarantor, setVerifyGuarantor] = useState(false);
     const [error,setError] = useState(null);
     const [disable, setDisable] = useState(false);
+    const [fileList, setFileList] = useState([])
+    const [guarantorList, setGuarantorList] = useState([]);
+    const [verifyList, setVerifyList] = useState([])
     const{loanRequest} = HandleLoan();
     const {dispatch} = AuthContext();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    
+    const homePage = ()=>{
+        signOut(auth)
+            .then(()=>{
+                navigate('/ejuandy')
+            })
+    }
 
+    const handleFileChange=({fileList})=>{
+        setFileList(fileList)
+    }
+    const handleGuarantorChange = ({fileList})=>{
+        setGuarantorList(fileList);
+    }
+    const handleVerifyChange = ({fileList})=>{
+        setVerifyList(fileList);
+    }
     const logOut = async ()=>{
         signOut(auth)
              .then(()=>{   
             navigate('/ejuandy')    
-            localStorage.removeItem('user');
             dispatch({type: 'AUTH', payload:null})
         }
         )
@@ -32,14 +51,19 @@ export const Forms = ()=>{
         setDetailValue(values);
         setCurrent(1);
     }
-
+//code to eccept request terms and coditions
     const changeDisable= (e)=>{
-        console.log(e.target.checked);
+        
         setVerifyDisable( e.target.checked)
         
-        console.log(verifyDisable);
         
     }
+    const changeGuarantorAccept =(e)=>{
+        
+        setVerifyGuarantor(e.target.checked)
+    }
+
+
    
     
     const onFinishGuarantor = (values)=>{
@@ -67,9 +91,9 @@ export const Forms = ()=>{
     }
 
     const displayForms = [
-        <Details onFinish={onFinishDetails} initialValues={detailValue} />,
-        <Guarantor onFinish={onFinishGuarantor} initialValues={guarantorValue} />,
-        <Verify onFinish={onFinishVerify} initialValues={verifyValue} verifyDisable={verifyDisable} changeDisable={changeDisable} />,
+        <Details onFinish={onFinishDetails} initialValues={detailValue} fileList={fileList} handleFileChange={handleFileChange} />,
+        <Guarantor guarantorList={guarantorList} handleGuarantorChange={handleGuarantorChange} onFinish={onFinishGuarantor} initialValues={guarantorValue} verifyGuarantor={verifyGuarantor} changeGuarantorAccept={changeGuarantorAccept} />,
+        <Verify verifyList={verifyList} handleVerifyChange={handleVerifyChange} onFinish={onFinishVerify} initialValues={verifyValue} verifyDisable={verifyDisable} changeDisable={changeDisable} />,
         <Finish logOut={logOut} />
     ]
 
@@ -93,6 +117,7 @@ export const Forms = ()=>{
                 {
                     disable ? <Spin size='large' className='isLoading' />:
                     <>
+                    <button className='btn' onClick={homePage}> click to go back to homePage</button>
                  <Steps onChange={setCurrent} current={current}>
                     <Steps.Step disabled={isStepDisbaled(0)} title='Application' icon={<UserOutlined />}/>
                     <Steps.Step disabled={isStepDisbaled(1)} title='Guarantor' icon={<UserOutlined />}/>
@@ -110,7 +135,7 @@ export const Forms = ()=>{
     )
 }
 
-const Details = ({onFinish, initialValues})=>{
+const Details = ({onFinish, initialValues, fileList, handleFileChange})=>{
     return(
         <Form labelCol={{span:5}} onFinish={onFinish} initialValues={initialValues} >
 
@@ -190,7 +215,7 @@ const Details = ({onFinish, initialValues})=>{
                     <DatePicker.RangePicker style={{width:'100%'}} picker='date' placeholder='put in period of repayment' />
                 </Form.Item>
 
-                                 <Form.Item
+                <Form.Item
                  label={'Applicant passport'}
                  name={'appPassport'}
                  rules={[{
@@ -202,9 +227,12 @@ const Details = ({onFinish, initialValues})=>{
 
                     <Upload.Dragger
                     accept='image/*'
-                    listType='picture'
+                    listType='picture'   
+                    fileList = {fileList}
+                    onChange={handleFileChange}
+
                     >
-                        <Button>upload applicant's passport please let picture be bold and clear</Button>
+                        <Button icon={<UploadOutlined/>}>upload applicant's passport please let picture be bold and clear</Button>
                     </Upload.Dragger>
                 </Form.Item>
 
@@ -217,7 +245,11 @@ const Details = ({onFinish, initialValues})=>{
     )
 }
 
-const Guarantor = ({onFinish, initialValues})=>{
+
+
+/// guarantor----------------------------------------------guarantor-----------------
+
+const Guarantor = ({onFinish, initialValues, verifyGuarantor, changeGuarantorAccept, guarantorList, handleGuarantorChange})=>{
     return(
         <Form labelCol={{span:5}} onFinish={onFinish} initialValues={initialValues}>
              <Form.Item name={'guarantor'} label={"Guarantor's Full Name"} rules={[
@@ -261,21 +293,31 @@ const Guarantor = ({onFinish, initialValues})=>{
                     <Upload.Dragger
                     accept='image/*'
                     listType='picture'
+                    fileList={guarantorList}
+                    onChange={handleGuarantorChange}
                     maxCount={1} 
                     >
-                        <Button>Upload guarantor's passport please let picture be bold and clear</Button>
+                        <Button icon={<UploadOutlined/>}>Upload guarantor's passport please let picture be bold and clear</Button>
                     </Upload.Dragger>
                 </Form.Item>
 
 
                 <Form.Item wrapperCol={{span:24}}>
-                    <Button block type='primary' htmlType='submit'>submit</Button>
+                    <Checkbox
+                    checked={verifyGuarantor}
+                     onChange={changeGuarantorAccept} >By clicking this you hereby accept <a href='#'>The terms and conditions</a> </Checkbox>
                 </Form.Item>
+
+                <Form.Item wrapperCol={{span:24}}>
+                    <Button disabled={!verifyGuarantor} block type='primary' htmlType='submit'>submit</Button>
+            </Form.Item>
         </Form>
     )
 }
 
-const Verify = ({onFinish, initialValues, verifyDisable, changeDisable})=>{
+
+/////////////////////////////// verify -------------------------------- verify
+const Verify = ({onFinish, initialValues, verifyDisable, changeDisable, verifyList, handleVerifyChange})=>{
     return(
          <Form labelCol={{span:5}} onFinish={onFinish} initialValues={initialValues} >
              <Form.Item
@@ -295,9 +337,11 @@ const Verify = ({onFinish, initialValues, verifyDisable, changeDisable})=>{
                     maxCount={1}
                     listType='picture'
                     accept='image/*'
+                    fileList={verifyList}
+                    onChange={handleVerifyChange}
                     >
                         Upload document for verification
-                        <Button>Upload document National ID card, PVC, Driver's License are applicable. </Button>
+                        <Button icon={<UploadOutlined/>}>Upload document National ID card, PVC, Driver's License are applicable. </Button>
                     </Upload.Dragger>
                 </Form.Item>
 

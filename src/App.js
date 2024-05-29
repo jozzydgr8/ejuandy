@@ -56,7 +56,7 @@ function App() {
     <>
     <Route path="ejuandy" element={<Root/>}>
       <Route index element={<Home/>}/>
-      <Route path='form' element={user ? user.emailVerified ? <FinForm /> : <Navigate to={'/ejuandy/verify'} />:<Navigate to ='/ejuandy/logIn'/>}/>
+      <Route path='form' element={user ? user.emailVerified ? <FinForm /> : <Navigate to={'/ejuandy/verify'} />:<Navigate to ='/ejuandy/signUp'/>}/>
       <Route path='logIn' element={!user ? <Login />: <Navigate to={'/ejuandy/form'} />}/>
       <Route path="signUp" element ={!user ? <SignUp/>: <Navigate to={'/ejuandy/form'} />} />
       <Route path = 'verify' element = {user && !user.emailVerified ? <VerifyEmail />:<Navigate to ={'/ejuandy/form'}/>} />

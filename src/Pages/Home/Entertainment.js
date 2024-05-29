@@ -3,14 +3,12 @@ import YouTube from "react-youtube";
 
 export const Entertainment = ()=>{
     const apiKey = process.env.REACT_APP_youtubeApiKey;
-    console.log(apiKey)
     const [playList, setPlayList] = useState('')
     useEffect(()=>{
         const getPlayList = async()=>{
             const response = await fetch(`https://WWW.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=PL3BK2yFLC_YBvEyHLxZfmI5u74ywTdvMn&maxResults=10&key=${apiKey}`)
             const json = await response.json();
             if(response.ok){
-                console.log(json.items);
                 setPlayList(json.items)
             }
             if(!response.ok){

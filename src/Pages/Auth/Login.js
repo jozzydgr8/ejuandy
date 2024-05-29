@@ -14,6 +14,7 @@ export const Login = ()=>{
     const [message, setMessage] = useState(null)
     const [disable, setDisable] = useState(false);
     const navigate = useNavigate();
+
     const signIn = (values)=>{
         setDisable(true);
         const {email, password} = values;
@@ -25,15 +26,13 @@ export const Login = ()=>{
                     if(user.uid !== process.env.REACT_APP_specialID){
                         signOut(auth)
                             .then(()=>{
-                                localStorage.removeItem('user');
-                                alert('YOU ARE NOT AUTHORIZED!!💀');
-                                navigate('/ejuandy')
+                                setDisable(false)
                             }).catch(error=>{
                                 console.log(error);
                                 setDisable(false)
                             })
+                            navigate('/ejuandy');
                     }else{
-                        localStorage.setItem('user',JSON.stringify(user));
                         dispatch({type:'AUTH', payload:user});
                         setDisable(false);
                     }
@@ -45,7 +44,6 @@ export const Login = ()=>{
         }else{
             signInWithEmailAndPassword(auth, email, password)
             .then(userCredential=>{
-                localStorage.setItem('user',JSON.stringify(userCredential.user));
              dispatch({type:'AUTH', payload:userCredential.user});
              setDisable(false);
             }).catch(error=>{
@@ -59,14 +57,13 @@ export const Login = ()=>{
 
            
     }
-    // console.log(location.pathname)
     return(
         <div>
             
 
             {disable ? <Spin size='large' className='isLoading' />:
             <>
-            {!addy && <h1>regsitration required for loan application</h1>}
+            { location.pathname !== process.env.REACT_APP_restrictedRoute && <h1>Login required for loan application</h1>}
             <Form labelCol={{span:5}} wrapperCol={{span:14}} onFinish={signIn}>
                 <Form.Item
                     name={'email'}
@@ -107,13 +104,13 @@ export const Login = ()=>{
                 </Form.Item>
 
             </Form>
-
+            {location.pathname !== process.env.REACT_APP_restrictedRoute && <div>or <NavLink to ='/ejuandy/signUp'>SignUp </NavLink></div>}
+            {message && <p>{message}</p>}
+            <button className='btn' onClick={()=>{navigate('/ejuandy')}} >go back to homePage</button>
             </>
 
             }
-            {location.pathname !== process.env.REACT_APP_restrictedRoute && <div>or <NavLink to ='/ejuandy/signUp'>SignUp </NavLink></div>}
-            {message && <p>{message}</p>}
-            <NavLink to={'/ejuandy'} >go back to homePage</NavLink>
+
         </div>
     )
 }

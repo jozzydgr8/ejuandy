@@ -26,10 +26,6 @@ export const AuthContextProvider = ({children})=>{
 
         dispatch({type:'SET-LOADING', payload:true});
 
-        const client = JSON.parse(localStorage.getItem('user'));
-        if(client){
-            dispatch({type:'AUTH', payload:client })
-        }else{dispatch({type:'SET-LOADING', payload:false});}
         const unSubscribe = onAuthStateChanged(auth, (user)=>{
                             if(user){
                                 dispatch({type:'AUTH', payload: user});
@@ -48,8 +44,7 @@ export const AuthContextProvider = ({children})=>{
                                 await user.reload();
                                 if (user.emailVerified){
                                     dispatch({type: 'AUTH', payload: user});
-                                    localStorage.setItem('user', JSON.stringify(user));
-                                    console.log('email verified')
+                                    // console.log('email verified')
                                     clearInterval(intervalId);
                                 }
                             }
