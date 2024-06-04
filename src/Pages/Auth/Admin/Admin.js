@@ -2,21 +2,23 @@ import { signOut } from "firebase/auth"
 import { auth, colRef } from "../../../App"
 import { AuthContext } from "../../../Context/AuthContext/AuthContext"
 import { onSnapshot } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 import { RequestTemplate } from "./RequestTemplate";
 import { Button } from "antd";
 
-export const Admin = ()=>{
+export const Admin = memo( ()=>{
     const {dispatch} = AuthContext();
     const [request, setRequest] = useState(null)
     useEffect(()=>{
         onSnapshot(colRef, (snapshot)=>{
             const data = [];
-            const dataRef = snapshot.docs.forEach(doc=>{
-                data.push({...doc.data(), id:doc.id})
+            const unSubscribe = snapshot.docs.forEach(doc=>{
+                 data.push({...doc.data(), id:doc.id})
+                if(JSON.stringify(data) !== JSON.stringify(request)){
+                    setRequest(data)
+                }
             });
-            setRequest(data)
-            console.log(data);
+            return ()=>unSubscribe();
         
             })
     },[]);
@@ -48,4 +50,4 @@ export const Admin = ()=>{
         </div>
         </>
     )
-}
+})

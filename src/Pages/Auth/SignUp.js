@@ -1,11 +1,12 @@
 
 import { Form, Input, Button, Spin } from 'antd';
 import { createUserWithEmailAndPassword, deleteUser, sendEmailVerification, signOut } from 'firebase/auth';
-import { auth } from '../../App';
+import { auth, db } from '../../App';
 import { AuthContext } from '../../Context/AuthContext/AuthContext';
 import { ContextConsumer } from '../../Context/IpCon/ContextConsumer';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { addDoc, collection } from 'firebase/firestore';
 
 
 
@@ -20,32 +21,34 @@ export const SignUp = ()=>{
     const navigate = useNavigate();
 
     
-    const signUp = (values)=>{
+    const signUp = async (values)=>{
         setDisable(true);
         const {email, password} = values;
         if(location.pathname === process.env.REACT_APP_restrictedRoute){
                     alert('error cannnot create account')
                     setDisable(false)
-                    navigate('/ejuandy')
-        }else{
-        createUserWithEmailAndPassword(auth, email, password)
-            .then(cred=>{
-                sendEmailVerification(cred.user)
-                .then(()=>{console.log('email verification sent')})
-                .catch(error=>console.error(error.message, 'error sending verification'))
-               
-             dispatch({type:'AUTH', payload:cred.user});
-             setDisable(false);
-            })
-            .catch(error=>{
-                console.log('sign up error', error)
-                setMessage('account already exist');
-                setDisable(false);
-
-            });
-
+                    navigate('/ejuandy');
+                    return
         }
+        try{
+            const cred = await createUserWithEmailAndPassword(auth, email, password);
 
+            //add user to users
+            const userRef = collection(db, 'Users');
+            await addDoc(userRef, {
+                email:cred.user.email,
+                userId:cred.user.uid
+            }); console.log('user created')
+            //send email verification
+            await sendEmailVerification(cred.user);
+                    console.log('email verification sent');
+            
+                    dispatch({type:'AUTH', payload:cred.user});
+        }catch(error){
+            console.log('sign up error', error)
+        }finally{
+            setDisable(false);
+        }
            
     }
     return(

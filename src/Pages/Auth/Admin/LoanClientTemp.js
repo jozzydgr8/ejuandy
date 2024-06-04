@@ -1,50 +1,89 @@
 import {  doc, setDoc } from "firebase/firestore";
 import { db} from '../../../App'
-import { useContext, useState } from "react";
+import { Spin } from "antd";
+import { memo, useCallback, useContext, useMemo, useState } from "react";
 
 import { HandleReapplyHook } from "../../Hooks/HandleReapplyHook";
-import { HandleOwingHook } from "../../Hooks/HandleOwingHook";
- import { HandleBalanceHook } from "../../Hooks/HandleBalanceHook";
 import { ContextProvider } from "./LoanClient";
+import { HandleOwing } from "../../Hooks/HandleOwing";
+import { useNavigate } from "react-router-dom";
 
-export const LoanClientTemp = ()=>{
-    const [loanAmout, setLoanAmount] = useState(null);
-    const [amountBalance, setAmoutBalance] = useState(null);
+export const LoanClientTemp = memo(()=>{
+    const [loanAmout, setLoanAmount] = useState('');
+    const [amountBalance, setAmoutBalance] = useState('');
     const {handleReApply} = HandleReapplyHook();
-    const {handleOwing} = HandleOwingHook();
-     const {handleBalance} = HandleBalanceHook();
-    
+    const {handleOwing} = HandleOwing();
     const context = useContext(ContextProvider);
-    const owing = handleOwing(context.amountBalanced, context.amountGranted, context.repaymentDate, context);
-    console.log(context)
-    console.log(owing)
+    const [disable, setDisable] = useState(false)
+    const navigate = useNavigate();
 
-    const balance =  (e)=>{
+    const owing = useMemo(()=> handleOwing(),[context.amountBalanced, context.loanAmount]);
+    
+    
+
+    const balance = useCallback((e)=>{
+        setDisable(true)
         e.preventDefault();
+        if (amountBalance == 0 || amountBalance == null){
+            setAmoutBalance('');
+            setDisable(false)
+            return
+        } 
+        if(context.status == 'Settled'){
+            setAmoutBalance('');
+            alert('cant balance what is already settled');
+            setDisable(false)
+            return
+        }
+        const documentRef = doc(db, 'Data', context.id);
+         setDoc(documentRef,{
+            amountBalanced: context.amountBalanced ? parseFloat(amountBalance) + parseFloat(context.amountBalanced):
+            parseFloat(amountBalance),
+        }, {merge:true}).then(()=>{
+           
+            console.log('balanced')
+        })
+        setAmoutBalance('');
+        setDisable(false)
+    }, [amountBalance, context.amountBalanced]);
 
-         handleBalance( amountBalance )
-    }
+    
     const deleteClient = async ()=>{
-        await handleReApply(context)
+        setDisable(true);
+        navigate('/ejuandy/admin');
+        await handleReApply();
+        setDisable(false)
     }
     //amount grant logic
 
-    const grant = async(e)=>{
+    const grant =useCallback( async(e)=>{
+        setDisable(true)
         e.preventDefault();
         if (loanAmout <= 0 || loanAmout == null){
+            setDisable(false);
+            return
+        }
+        if(context.status == 'Settled'){
+            alert('please delete so client can reappply');
+            setDisable(false);
             return
         }
         const documentRef = doc(db, 'Data', context.id);
         await setDoc(documentRef,{
             amountGranted:parseFloat(loanAmout),
-            status:'Indebt'
-        }, {merge:true})
-    }
+            status:'Indebt',
+        }, {merge:true});
+        setDisable(false);
+    }, [context.loanAmount, loanAmout])
 
     return(
+ 
         <section id="LoanClientSection" >
         <div className="container-fluid background">
-            <div className='row'>
+        {
+            disable ? <Spin size='large' className="isLoading" />:
+             <>
+                            <div className='row'>
                 <div className="col-md-6 clientPassport">
                     <header>passport photo</header>
                     <img src={context.passport} alt="clientPAss" />
@@ -59,6 +98,7 @@ export const LoanClientTemp = ()=>{
             <div className="details">
                 <h1>Details</h1>
                 <div className="">
+                        <p>Date: {context.date}</p>
                         <p>status: {context.status}</p>
                         <p>Name: {context.name}</p>
                         <p>trade: {context.trade}</p>
@@ -122,14 +162,15 @@ export const LoanClientTemp = ()=>{
                         amount balanced = {context.amountBalanced}
 
                         <form onSubmit={balance} >
-                        <input type="number" placeholder="amount balanced" onChange={(e)=>setAmoutBalance(e.target.value)}/>
+                        <input type="number" placeholder="amount balanced"value={amountBalance} onChange={(e)=>setAmoutBalance(e.target.value)}/>
                         <button type='submit' className=" btn btn-primary">submit</button>
+                        {context.status =='refund' && <div>use a negative sign when refunding client</div>}
                         </form>
                     </div>
 
                     <div className="col-md-4">
-                        owing :{
-                           owing
+                       {context.status} :{
+                           context.owing? context.owing:owing 
                         }
                         <p>there is a 5% on default and 4x default attracts 10% of loan</p>
                     </div>
@@ -138,7 +179,10 @@ export const LoanClientTemp = ()=>{
 
                 </div>
             </div>
+            </>
+        }
+
         </div>
         </section>
     )
-}
+})
