@@ -6,6 +6,8 @@ import {  useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../App';
 import { AuthContext } from '../../Context/AuthContext/AuthContext';
+import { Modal } from './Modal';
+import { TermsHook } from '../Hooks/TermsHook';
 export const Forms = ()=>{
     const [current, setCurrent] = useState(0);
     const [detailValue, setDetailValue] = useState(null);
@@ -17,21 +19,46 @@ export const Forms = ()=>{
     const [disable, setDisable] = useState(false);
     const [fileList, setFileList] = useState([])
     const [guarantorList, setGuarantorList] = useState([]);
-    const [verifyList, setVerifyList] = useState([])
+    const [verifyList, setVerifyList] = useState([]);
+    const [writeUp, setWriteUp] = useState('');
     const{loanRequest} = HandleLoan();
     const {dispatch} = AuthContext();
     const navigate = useNavigate();
+    const [isOpen, setIsOpen] = useState(false)
+    const {applicantTerm, guarantorTerm} = TermsHook();
     
+    //navigate function
     const homePage = ()=>{
         signOut(auth)
             .then(()=>{
                 navigate('/ejuandy')
             })
     }
-
+// applicant onfinish
     const handleFileChange=({fileList})=>{
         setFileList(fileList)
     }
+    //set dynamic write up
+    const writeTerms = ()=>{
+        const terms = guarantorTerm();
+        setWriteUp(terms);
+    }
+    //set applicant terms
+    const writeAppTerms = ()=>{
+        const terms = applicantTerm()
+        setWriteUp(terms)
+    }
+//guarantor modal
+    const openModal = ()=>{
+        writeTerms();
+        setIsOpen(true);
+    }
+//applicant modal
+    const verifyModal = ()=>{
+        writeAppTerms();
+        setIsOpen(true);
+    }
+    //guaranot onfinidh
     const handleGuarantorChange = ({fileList})=>{
         setGuarantorList(fileList);
     }
@@ -91,9 +118,9 @@ export const Forms = ()=>{
     }
 
     const displayForms = [
-        <Details onFinish={onFinishDetails} initialValues={detailValue} fileList={fileList} handleFileChange={handleFileChange} />,
-        <Guarantor guarantorList={guarantorList} handleGuarantorChange={handleGuarantorChange} onFinish={onFinishGuarantor} initialValues={guarantorValue} verifyGuarantor={verifyGuarantor} changeGuarantorAccept={changeGuarantorAccept} />,
-        <Verify verifyList={verifyList} handleVerifyChange={handleVerifyChange} onFinish={onFinishVerify} initialValues={verifyValue} verifyDisable={verifyDisable} changeDisable={changeDisable} />,
+        <Details  onFinish={onFinishDetails} initialValues={detailValue} fileList={fileList} handleFileChange={handleFileChange} />,
+        <Guarantor  openModal={openModal} guarantorList={guarantorList} handleGuarantorChange={handleGuarantorChange} onFinish={onFinishGuarantor} initialValues={guarantorValue} verifyGuarantor={verifyGuarantor} changeGuarantorAccept={changeGuarantorAccept} />,
+        <Verify verifyModal={verifyModal} verifyList={verifyList} handleVerifyChange={handleVerifyChange} onFinish={onFinishVerify} initialValues={verifyValue} verifyDisable={verifyDisable} changeDisable={changeDisable} />,
         <Finish logOut={logOut} />
     ]
 
@@ -121,11 +148,15 @@ export const Forms = ()=>{
                  <Steps onChange={setCurrent} current={current}>
                     <Steps.Step disabled={isStepDisbaled(0)} title='Application' icon={<UserOutlined />}/>
                     <Steps.Step disabled={isStepDisbaled(1)} title='Guarantor' icon={<UserOutlined />}/>
-                    <Steps.Step disabled={isStepDisbaled(0)} title='verify' icon={<VerifiedOutlined />}/>
-                    <Steps.Step disabled={isStepDisbaled(0)} title='finish' icon={<CheckCircleOutlined/>} />
+                    <Steps.Step disabled={isStepDisbaled(2)} title='verify' icon={<VerifiedOutlined />}/>
+                    <Steps.Step disabled={isStepDisbaled(3)} title='finish' icon={<CheckCircleOutlined/>} />
                 </Steps>
                     {error && <p>{error}</p>}
                     {displayForms[current]}
+                    <Modal open={isOpen}>
+                        {writeUp}
+                        <div><button onClick={()=>setIsOpen(false)} className="btn btn-primary">Done</button></div>
+                    </Modal>
                     </>
                 }
 
@@ -200,7 +231,13 @@ const Details = ({onFinish, initialValues, fileList, handleFileChange})=>{
                     {
                         required:true,
                         message:'please this field is required'
-                    }
+                    },{whitespace:true},
+                    {validator: (_, value)=>{
+                        if(value && value.startsWith('0')){
+                            return Promise.reject(new Error('Input can not start with 0'));
+                        }
+                        return Promise.resolve();
+                    }}
                 ]} hasFeedback>
                     <Input type='number' placeholder='Type in your loan amount in naira' />
 
@@ -249,7 +286,7 @@ const Details = ({onFinish, initialValues, fileList, handleFileChange})=>{
 
 /// guarantor----------------------------------------------guarantor-----------------
 
-const Guarantor = ({onFinish, initialValues, verifyGuarantor, changeGuarantorAccept, guarantorList, handleGuarantorChange})=>{
+const Guarantor = ({openModal, onFinish, initialValues, verifyGuarantor, changeGuarantorAccept, guarantorList, handleGuarantorChange})=>{
     return(
         <Form labelCol={{span:5}} onFinish={onFinish} initialValues={initialValues}>
              <Form.Item name={'guarantor'} label={"Guarantor's Full Name"} rules={[
@@ -305,7 +342,7 @@ const Guarantor = ({onFinish, initialValues, verifyGuarantor, changeGuarantorAcc
                 <Form.Item wrapperCol={{span:24}}>
                     <Checkbox
                     checked={verifyGuarantor}
-                     onChange={changeGuarantorAccept} >By clicking this you hereby accept <a href='#'>The terms and conditions</a> </Checkbox>
+                     onChange={changeGuarantorAccept} >By clicking this guarantor hereby accept <span className='modalLink' onClick={ openModal}>The terms and conditions</span> </Checkbox>
                 </Form.Item>
 
                 <Form.Item wrapperCol={{span:24}}>
@@ -317,7 +354,7 @@ const Guarantor = ({onFinish, initialValues, verifyGuarantor, changeGuarantorAcc
 
 
 /////////////////////////////// verify -------------------------------- verify
-const Verify = ({onFinish, initialValues, verifyDisable, changeDisable, verifyList, handleVerifyChange})=>{
+const Verify = ({verifyModal,onFinish, initialValues, verifyDisable, changeDisable, verifyList, handleVerifyChange})=>{
     return(
          <Form labelCol={{span:5}} onFinish={onFinish} initialValues={initialValues} >
              <Form.Item
@@ -348,7 +385,7 @@ const Verify = ({onFinish, initialValues, verifyDisable, changeDisable, verifyLi
                 <Form.Item wrapperCol={{span:24}}>
                     <Checkbox
                     checked={verifyDisable}
-                     onChange={changeDisable} >By clicking this you hereby accept <a href='#'>The terms and conditions</a> </Checkbox>
+                     onChange={changeDisable} >By clicking this you hereby accept <span onClick={verifyModal} className='modalLink'>The terms and conditions</span> </Checkbox>
                 </Form.Item>
 
                 <Form.Item wrapperCol={{span:24}}>
