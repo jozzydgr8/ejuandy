@@ -1,4 +1,4 @@
-import busVid from '../../asset/WhatsApp Video 2023-06-07 at 13.50.57.mp4'
+import busVid from '../../../asset/WhatsApp Video 2023-06-07 at 13.50.57.mp4'
 export const Bus = ()=>{
     return(
      <>

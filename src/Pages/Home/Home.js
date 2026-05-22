@@ -1,10 +1,10 @@
-import { About } from "./About"
-import { Bus } from "./Bus"
-import { Dist } from "./Dist"
-import { Entertainment } from "./Entertainment"
-import { Fintech } from "./FinTech"
-import { Footer } from "./Footer"
-import { Header } from "./Header"
+import {About} from './HomeComponent/About'
+import { Bus } from "./HomeComponent/Bus"
+import { Dist } from "./HomeComponent/Dist"
+import { Entertainment } from "./HomeComponent/Entertainment"
+import { Fintech } from "./HomeComponent/FinTech"
+import { Footer } from "../../shared/Footer"
+import { Header } from "./HomeComponent/Header"
 
 export const Home = ()=>{
     return(

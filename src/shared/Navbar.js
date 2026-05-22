@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
-import NavLogo from '../../asset/ejuandy_logo_black-removebg-preview.png';
-import { ContextConsumer } from '../../Context/IpCon/ContextConsumer';
+import NavLogo from '../asset/ejuandy_logo_black-removebg-preview.png';
+import { ContextConsumer } from '../Context/IpCon/ContextConsumer';
 
 
 

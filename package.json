@@ -10,7 +10,7 @@
     "@testing-library/user-event": "^13.5.0",
     "animate.css": "^4.1.1",
     "antd": "^5.16.2",
-    "dotenv": "^16.4.5",
+    "dotenv": "^16.6.1",
     "firebase": "^10.11.0",
     "gh-pages": "^6.1.1",
     "react": "^18.2.0",
@@ -22,8 +22,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "predeploy":"npm run build",
-    "deploy":"gh-pages -d build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

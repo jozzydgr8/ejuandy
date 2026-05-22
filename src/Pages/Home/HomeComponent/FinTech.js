@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import fintech from '../../asset/2112.i607.022.S.m012.c12.fintech_isometric_composition-removebg-preview.png'
+import fintech from '../../../asset/2112.i607.022.S.m012.c12.fintech_isometric_composition-removebg-preview.png'
 import { Link } from 'react-router-dom'
 export const Fintech = ()=>{
     const [more,setMore] = useState(false)

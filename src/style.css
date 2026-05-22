@@ -150,7 +150,7 @@ img{
 /* **********second-section******** */
     
     .card{
-        margin: 4% 2%;
+        margin-bottom: 20px;
         border: none;
         background: rgb(240, 239, 239);
         box-shadow: 6px 9px rgb(104, 104, 104);

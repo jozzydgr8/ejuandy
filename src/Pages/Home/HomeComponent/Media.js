@@ -1,12 +1,12 @@
-import Netflix from '../../asset/Netflix-img.png';
-import ShowMax from '../../asset/showmax-img-removebg-preview.png';
-import Dstv from '../../asset/dstv-use-img.jpg';
-import Wap from '../../asset/waptv-removebg-preview.png';
-import AfricaMagic from '../../asset/africa-magic.png';
-import crazy from '../../asset/crazy-world..jpeg';
-import single from '../../asset/30s single andbored.jpeg';
-import anniversary from '../../asset/anniversary.png.jpeg';
-import prime from '../../asset/prime.png';
+import Netflix from '../../../asset/Netflix-img.png';
+import ShowMax from '../../../asset/showmax-img-removebg-preview.png';
+import Dstv from '../../../asset/dstv-use-img.jpg';
+import Wap from '../../../asset/waptv-removebg-preview.png';
+import AfricaMagic from '../../../asset/africa-magic.png';
+import crazy from '../../../asset/crazy-world..jpeg';
+import single from '../../../asset/30s single andbored.jpeg';
+import anniversary from '../../../asset/anniversary.png.jpeg';
+import prime from '../../../asset/prime.png';
 export const Media = ()=>{
     return(
 

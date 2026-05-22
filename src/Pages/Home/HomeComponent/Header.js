@@ -1,6 +1,6 @@
 
 import { Carousel } from './Carousel'
-import { Navbar } from './Navbar'
+import { Navbar } from '../../../shared/Navbar'
 export const Header = ()=>{
     return(
         <section id="section1">

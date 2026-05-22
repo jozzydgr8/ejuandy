@@ -6,7 +6,7 @@ import {  useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../App';
 import { AuthContext } from '../../Context/AuthContext/AuthContext';
-import { Modal } from './Modal';
+import { Modal } from '../Home/Modal';
 import { TermsHook } from '../Hooks/TermsHook';
 export const Forms = ()=>{
     const [current, setCurrent] = useState(0);

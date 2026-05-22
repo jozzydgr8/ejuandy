@@ -12,7 +12,7 @@ import { Root } from "./Template/Root";
 //pages
 
 import { Home } from "./Pages/Home/Home";
-import { FinForm } from "./Pages/Home/FinForm";
+import { FinForm } from "./Pages/LoanPage/FinForm";
 import { Login } from "./Pages/Auth/Login";
 import { Admin } from "./Pages/Auth/Admin/Admin";
 import { AdminRoot } from "./Template/AdminRoot";
