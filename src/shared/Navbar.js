@@ -9,7 +9,7 @@ export const Navbar = ()=>{
     const {addy} = ContextConsumer();
     
     return(
-        <nav className="navbar navbar-expand-lg bg-light navbar-light ">
+        <nav className="navbar navbar-expand-lg bg-light navbar-light  ">
 
 
                             
@@ -45,7 +45,7 @@ export const Navbar = ()=>{
                 </li>
 
                 <li className='nav-item'>
-                    <a className='nav-link' href='http://www.gistmetvmag.blogspot.com/' target='_blank' >Blog</a>
+                    <a className='nav-link' href='http://www.gistmetvmag.blogspot.com/' target='_blank' rel="noreferrer" >Blog</a>
                 </li>
 
                 {addy && <li className='nav-item'><NavLink className='nav-link' to='admin'>view forms</NavLink></li>}

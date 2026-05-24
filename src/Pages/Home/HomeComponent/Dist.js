@@ -7,23 +7,26 @@ export const Dist = ()=>{
       <>
         <section id="distribution-section" className="background">
             <div className="container-fluid">
-            <h1 className="monserrat">
-                EIC distribution
-            </h1>
+               <div style={{textAlign: "center"}}>
+                 <p className='badge'>EIC Distribution</p>
+            <h2 className="animate-up">
+                Where Our Stories Reach the World
+            </h2>
 
-                <p className="monserrat">
+               </div>
+                <p className="subtopic animate-up">
                             Licensed Amazon Distribution company,
                             Over a decade Distribution Partnership with Multichoice Group (Mnet, Africa Magic & More),
                             Our Francophone Distribution network is not left out, over 1,000 & more french,
                             Wolof & other African language titles on distribution.
 
                             {more ? <span>
-                                <h6> 
+                                <p> 
                                     
                                     p.s : while sending us a mail for business concerning distribution send us a link to your 
                                      movie/series trailer Thank you.
                                 
-                             </h6>
+                             </p>
                             </span>
                             :
                             <span>...</span>}

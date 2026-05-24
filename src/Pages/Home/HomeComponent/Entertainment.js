@@ -35,10 +35,13 @@ export const Entertainment = ()=>{
         <>
             <section id="entertainment-section" className="background">
                 <div className="container-fluid">
-                    <h1 className="monserrat">
-                        eic Entertainment 
-                    </h1>
-                    <span> Some Of Our Premium Contents</span>
+                    <div style={{textAlign:'center'}}>
+                        <p className='badge'>eic entertainment</p>
+                        <h2>
+                        The Home of Bold Entertainment
+                        </h2>
+                        <span> Some Of Our Premium Contents</span>
+                    </div>
 
                   
 

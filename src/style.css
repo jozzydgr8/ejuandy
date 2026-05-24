@@ -3,26 +3,55 @@
     padding: 0%;
     box-sizing: border-box;
 }
+:root {
+  --deep-charcoal: #232329;
+  --dark-charcoal:#141418;
+  --burnished-gold: #b8860b;
+  --electric-teal: #008080;
+  --deep-dark-teal: #006666;
+ --light-gold: #E6C76A;
+ --transparent-gold: rgba(184, 134, 11, 0.2);
+  --ivory:#fffaf0;
+  --gray:#6b7280 ;
+ 
+}
+
 .linkAnimation{
     animation:shakeX ;
     animation-duration: 1s;
     animation-delay: 1s;
-    /* animation-iteration-count: infinite; */
+   
 }
 body{
-    text-align: center;
-    
+  background: var(--deep-charcoal);
+  color: var(--gray);
+  font-family: "Catamaran", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+   overflow-x: hidden;
+   margin: 0;
+   padding: 0;
+   font-size: 18px;
 }
-.background{
-    background: rgb(41, 41, 41);
-    color: white;
+a{
+    color: inherit;
+    text-decoration: none;
 }
-.container-fluid{
-    padding: 7% 10%;
+h1 {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 900;
+  font-style: normal;
+  font-size: 4rem; 
+  line-height: 1.1;
+  color: var(--ivory);
 }
-h1, h2, h3, h4, h5{
-    text-transform: uppercase;
-    margin: 2% 0;
+
+h2, h3, h4, h5, h6{
+  font-family: "Cabin", sans-serif;
+  text-transform: capitalize;
+  color: var(--ivory);
 }
 
 hr{
@@ -32,94 +61,99 @@ hr{
     padding: 0%;
     margin: 0%;
 }
-.hover:hover{
-    cursor: pointer;
-    
-}
-
-
 iframe, video{
     max-width: 100%;
     height: auto;
     margin: 3% 0;
 }
 
-img{
-    width: 60%;
-    text-align: center;
+section >.container-fluid, footer > .container-fluid{
+    padding: 5% 10%;
+}
+#carousel-section-testimonial  .container-fluid{
+    padding:5% 10% 1% 10%;
+}
+
+/* btn btn button button btn btn */
+
+.borderlessbtn{
+  background: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+  color: var(--burnished-gold);
+}
+.btn{
+  text-transform: capitalize;
+   white-space: nowrap;
+   margin-right: 10px;
+   margin-bottom: 10px;
+   
+  } 
+
+.btnPrimary{
+    background-color: var(--burnished-gold);
+  
+  color: white;
+}
+
+.btnSecondary{
+   background-color: none;
+   border: solid 1px var(--light-gold);
+  color: white;
+}
+.btnSuccess:hover{
+  background-color: var(--deep-dark-teal);
+  color: white;
+}
+.btnSuccess{
+  background-color: var(--electric-teal);
+  color: white;
+}
+
+.btnPrimary:hover, .btnSecondary:hover{
+background-color: var(--light-gold);
+  color: white;
+}
+.btn-xl {
+  padding: 1rem 2rem;
+  font-size: 1.5rem;
+  border-radius: 0.5rem;
 }
 
 
-.loader{
-    position: fixed;
-    z-index: 999;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: white;
-}
-.loader.spinner-border{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-.spinner-border{
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    margin: auto;
-    z-index: 999;
-}
 
 
 
-.monserrat{
-    font-family: 'Montserrat', sans-serif;
-}
 .more-less-button{
     background: none;
     color: white;
 }
 
-.roboto{
-    font-family: 'Roboto', sans-serif;
-}
+
 .second-more-less-button{
     margin: 2% 0;
     background: none;
     color: white;
 }
-.sacramento{
-    font-family: 'Sacramento', cursive;
-    font-size: 1.3vw;
 
-}
+/* ***********navbar */
 
-.ubuntu{
-    font-family: 'Ubuntu', sans-serif;
-    font-weight: 200;
-    font-size: 3vw;
-}
-
-/* ***********navbar  and firsst sevtion*/
-.carousel-section{
+/* .carousel-section{
     text-align: left ;
     padding: 15% 25% 15% 13%;
     font-size: 2.3vw;
     line-height: 1.5;
     font-family: 'Montserrat', sans-serif;
     font-weight: 200;
+    color: var(--deep-charcoal);
 }.carousel-readmore{
     font-size: 1.8vw;
     border: none;
     outline: none;
     background: transparent;
     text-transform: lowercase;
-}
+} */
 
 .ejuandy-logo{
     width: 32%;
@@ -127,9 +161,10 @@ img{
 
 .navbar{
     padding: 1% 5%;
+    
 }
 .nav-link{
-    text-transform: uppercase;
+    text-transform: capitalize;
 }
 .nav-texts{
     font-size:0.8vw ;
@@ -147,159 +182,90 @@ img{
         font-size: 1.7vw;
     }
 }
-/* **********second-section******** */
-    
-    .card{
-        margin-bottom: 20px;
-        border: none;
-        background: rgb(240, 239, 239);
-        box-shadow: 6px 9px rgb(104, 104, 104);
-        font-size: 1.5vw;
-        min-height: 350px;
-    }
-    @media (max-width:700px) {
-        .card{
-            min-height: 60%;
-        }
-    }
-    .card:hover{
-        box-shadow: 6px 9px rgb(138, 138, 138); 
-    } 
-    .card-edit{
-        text-transform: capitalize;
-        font-size: xx-small;
-    }
-    .card-title {
-        font-size: 2.5vw;
-        text-align: center;
-    }
-     .card-subtitle{
-        font-size: 2vw;
-        text-align: center;
-    }
-    
-    @media (max-width:900px) {
-        .btn{
-            font-size: 2.5vw;
-        }
-    }
-    .second-section-card-texts{
-        padding: 0% 7%;
-    }
-    #second-section{
-        text-align: left;
-    }
-    #carousel-section-testimonial{
-        text-align: center;
-    }
 
-/* *********second-section************ */
-
-
-/* ************third-section******* */
-#distribution-section  p {
-    text-align: left;
+.badge{
+    color:var(--light-gold);
+    text-transform: uppercase;
+}
+p.subtopic {
+    font-size: 20px; /* bigger than body text */
+    font-weight: 500; /* slightly bolder, optional */
+    margin-top: 10px;
+    margin-bottom: 15px;
 }
 
-
-/* *********third-section-end********** */
-
-/* ***********fourth-section-text******** */
-#fintech-section .button-container{
-    text-align: left;
-}
-.warning-text{
-    color: gainsboro;
-    font-size: smaller;
+/* hero-section hero-section hero-section */
+#hero{
+  background-image: url('./asset/arrangement-movie-elements-white-background-with-copy-space.jpg');
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  
+  text-align: center;
 }
 
-
-.fourth-section-text{
-    margin: 5% 0 5% 0;
-    text-align: left;
+#hero .container-fluid{
+  color: var(--ivory);
+  background: linear-gradient(
+  to right,
+  var(--deep-charcoal),
+  transparent 500% 
+  
+);
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.hero-write{
+    color: var(--burnished-gold);
 }
 
-/* ***********fourth-section-end****** */
-
-
-/* ********fifth-section******* */
-.fifth-section-button{
-    margin-bottom: 5%;
+.button-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  width: 100%;
+  max-width: 600px;
 }
 
-
-.business-text{
-    text-align: left;
-    padding-top: 8%;
+.button-container .btn {
+  width: 100%;
 }
 
-.fifth-section-text{
-
-    text-align: left;
-    margin: 10% 0 3% 0;
+/* **********testimonial-section******** */
+#carousel-section-testimonial{
+    text-align: center;
 }
+
+/* servicee---servcies---service *//* *********service-section************ */
+.icon-style {
+  font-size: 32px;
+  background: var(--transparent-gold);
+  color: var(--light-gold);
+  padding: 14px;
+  border-radius: 10px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: fit-content; /* prevents full width */
+}
+.serviceCard{
+  background-color: var(--dark-charcoal);
+  padding: 30px;
+  border-radius:20px ;
+  box-shadow: 0 4px 6px -1px var(--light-gold);
  
-
-/* *********fifth-section-end***** */
-/* ***********entertainment-section */
-
-
-#entertainment-section .container-fluid{
-    padding: 7% 7%;
 }
 
-.iframe-link{
-    color: gainsboro;
-    text-decoration: none;
-    font-family: 'Montserrat', sans-serif;
-}
-
-
-
-/* *****contact-section******** */
-
-
-/* *******footer-section*** */
-#footer-section {
-    text-transform: lowercase !important;
-}
-#footer-section .container-fluid{
-    padding: 3% 5%;
-}
-.footer-section-link{
-    color: gainsboro;
-    text-decoration: none;
-
-}
-
-
-
-
-.distribute-car{
-    background-image: url('./asset/correctvideobackground.jpg');
     
-}
-.cover{
-    background-size: cover;
-}
-.fintech-car{
-    background-image: url('./asset/rubberstampbackground.jpg');
-}
-.bus-car{
-    background-image: url('./asset/border-from-stationery-technologies-with-coffee.jpg');
-}
-.button-container{
-    margin: 2% 0;
-}
+   
 
-.media-grid{
-    margin-top: 4%;
-}
 
-/* .isDisabled{
-    opacity: 0.5;
-    pointer-events: none;
-} */
+
 .isLoading{
     display: flex;
     justify-content: center;
@@ -336,3 +302,52 @@ img{
       display: none !important;
     }
   }
+.loader{
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+}
+.loader.spinner-border{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.spinner-border{
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    z-index: 999;
+}
+
+
+/* animation animation animation animation animation animation */
+.sectionAnimationLeft{
+  scroll-behavior: smooth;
+  animation: backInLeft;
+  animation-duration: 1.5s;
+}
+.sectionAnimationDown{
+  scroll-behavior: smooth;
+  animation:fadeInDownBig;
+  animation-duration: 1.2s;
+}
+
+.sectionAnimationUp{
+  scroll-behavior: smooth;
+  animation:fadeInUpBig;
+  animation-duration: 1.2s;
+
+}
+.sectionAnimationRight{
+  scroll-behavior: smooth;
+  animation: backInRight;
+  animation-duration: 1.2s;
+}

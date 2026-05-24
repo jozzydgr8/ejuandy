@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import {FlatButton} from "../../../shared/FlatButton";
 
 export const Carousel = ()=>{
     const [more, setMore] = useState(false);
@@ -33,7 +34,7 @@ export const Carousel = ()=>{
                                 {/* mailto button */}
                             <div className="button-container" >
                             <a href="mailto:eicomunications@gmail.com" rel="noreferrer" target="_blank">
-                                <button type="button" className="btn btn-secondary btn-lg business">Mail us</button>
+                                <FlatButton title="Mail us" className="btn btnPrimary btn-xl business" />
                             </a>
                             </div>
 
@@ -96,7 +97,7 @@ export const Carousel = ()=>{
 
                             <div className="button-container">
                             <a href="mailto:eicomunications@gmail.com" rel="noreferrer" target="_blank">
-                                <button type="button" className="btn btn-secondary btn-lg business">Mail us</button>
+                                <FlatButton title="Mail us" className="btn btn-secondary btn-lg business" />
                             </a>
                            </div>
 
