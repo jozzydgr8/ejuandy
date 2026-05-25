@@ -43,7 +43,7 @@ h1 {
   font-optical-sizing: auto;
   font-weight: 900;
   font-style: normal;
-  font-size: 4rem; 
+    font-size: clamp(2rem, 8vw, 4rem);
   line-height: 1.1;
   color: var(--ivory);
 }
@@ -68,7 +68,7 @@ iframe, video{
 }
 
 section >.container-fluid, footer > .container-fluid{
-    padding: 5% 10%;
+    padding: 3% 5%;
 }
 #carousel-section-testimonial  .container-fluid{
     padding:5% 10% 1% 10%;
