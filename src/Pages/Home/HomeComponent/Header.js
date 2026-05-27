@@ -8,7 +8,7 @@ export const Header = ()=>{
                 <h1 className='hero-write'>Distributed Across Africa</h1>
                 <p className='subtopic'>
                     EIC Communications connects filmmakers, brands, and content creators with audiences across Africa.
-                     As a licensed Amazon Distribution partner with over a decade of Multichoice partnership,
+                     As a licensed, Netflix, Amazon & Canal + Distribution company with over a decade of Multichoice partnership,
                       we deliver your story to millions.
                 </p>
                 <div className="button-container">

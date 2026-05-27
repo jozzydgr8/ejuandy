@@ -29,12 +29,7 @@ export const serviceData = [
       "Efficient product distribution, logistics coordination, and supply chain support for reliable market delivery.",
     icon: "cube-outline",
   },
-  {
-    name: "Voice Over Production",
-    description:
-      "High-quality voice-over recording, audio production, and narration services for media, advertising, and branding projects.",
-    icon: "mic-outline",
-  },
+  
   {
     name: "Event Management",
     description:

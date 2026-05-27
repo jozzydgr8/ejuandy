@@ -1,11 +1,14 @@
 import Netflix from '../../../asset/Netflix-img.png';
-import ShowMax from '../../../asset/showmax-img-removebg-preview.png';
+import aitLogo from '../../../asset/ait.jpg';
 import Dstv from '../../../asset/dstv-use-img.png';
+import always from '../../../asset/alwaysLogo.png';
+import mtn from '../../../asset/mtn.jpg';
+import pepsi from '../../../asset/pepsiLogo.png';
 import Wap from '../../../asset/waptv-removebg-preview.png';
 import AfricaMagic from '../../../asset/africa-magic.png';
-import crazy from '../../../asset/crazy-world..jpeg';
+import sakaTawa from '../../../asset/sakatawa.jpg';
 import single from '../../../asset/30s single andbored.jpeg';
-import anniversary from '../../../asset/anniversary.png.jpeg';
+import annabel from '../../../asset/annabel_series.jpg';
 import prime from '../../../asset/prime.png';
 import hangout from '../../../asset/teens-hangout.jpg';
 import Marquee from "react-fast-marquee";
@@ -17,9 +20,9 @@ export const featuredMedia = [
         alt:'hangout'
     },
   {
-    name: 'Crazy World',
-    image: crazy,
-    alt: 'crazy_world',
+    name: 'sakaTawa World',
+    image: sakaTawa,
+    alt: 'sakaTawa_world',
   },
   {
     name: '30s Single and Bored',
@@ -27,9 +30,9 @@ export const featuredMedia = [
     alt: '30s_single_and_bored',
   },
   {
-    name: 'Anniversary',
-    image: anniversary,
-    alt: 'anniversary',
+    name: 'annabel',
+    image: annabel,
+    alt: 'annabel',
   },
 ];
 
@@ -40,14 +43,25 @@ export const distributionPartners = [
     alt: 'p',
   },
   {
+    name: 'always',
+    image: always,
+    alt: 'a',
+  },
+  {
+    name: 'mtn',
+    image: mtn,
+    alt: 'm',
+  },
+  
+  {
     name: 'Netflix',
     image: Netflix,
     alt: 'netflix',
   },
   {
-    name: 'ShowMax',
-    image: ShowMax,
-    alt: 'showmax',
+    name: 'aitLogo',
+    image: aitLogo,
+    alt: 'aitLogo',
   },
   {
     name: 'DStv',

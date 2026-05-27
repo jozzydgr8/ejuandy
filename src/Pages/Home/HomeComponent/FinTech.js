@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import fintech from '../../../asset/2112.i607.022.S.m012.c12.fintech_isometric_composition-removebg-preview.png'
-import { NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom';
+import { FlatButton } from '../../../shared/FlatButton';
 export const Fintech = ()=>{
     const [more,setMore] = useState(false)
     return(
@@ -48,6 +49,7 @@ export const Fintech = ()=>{
                         </p>
                         <div >
                             <NavLink to={'form'} type="button" className="btn btnPrimary btn-xl">Get Loan</NavLink>
+                            <FlatButton className='btn btnSecondary btn-xl' title='Submit Pitch'/>
                         </div>
 
 

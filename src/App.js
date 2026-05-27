@@ -20,6 +20,7 @@ import { LoanClient } from "./Pages/Auth/Admin/LoanClient";
 import { SignUp } from "./Pages/Auth/SignUp";
 import { VerifyEmail } from "./Pages/Home/VerifyEmail";
 import { Spin } from "antd";
+import { Loading } from "./shared/Loading";
 
 
 const firebaseConfig = {
@@ -50,7 +51,7 @@ function App() {
   const {addy, loading:addyLoading} = ContextConsumer();
 
   if( loading){
-    return <Spin size="large" className="isLoading" />
+    return <Loading/>
   }
   
   

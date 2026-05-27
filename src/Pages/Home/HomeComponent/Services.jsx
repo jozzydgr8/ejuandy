@@ -8,7 +8,7 @@ export const Services = ()=>{
                 <p className='badge'>What we do</p>
                 <h2>Comprehensive Media & Entertainment Solutions</h2>
                 <p style={{padding:'0 55px'}}>From content creation to distribution, PR services to fintech solutions,
-                     we provide end-to-end support for your media and entertainment needs.</p>
+                     we provide end-to-end support for your media, entertainment and fintech needs.</p>
                 </div>
                 <div className="row">
                         {
