@@ -1,29 +1,31 @@
 {
   "files": {
-    "main.css": "/ejuandy/static/css/main.9fa9a805.css",
-    "main.js": "/ejuandy/static/js/main.eec738fa.js",
+    "main.css": "/ejuandy/static/css/main.4460fe61.css",
+    "main.js": "/ejuandy/static/js/main.a0ff75d1.js",
     "static/js/453.2b24a44d.chunk.js": "/ejuandy/static/js/453.2b24a44d.chunk.js",
     "static/media/arrangement-movie-elements-white-background-with-copy-space.jpg": "/ejuandy/static/media/arrangement-movie-elements-white-background-with-copy-space.731fe5d5f67d057597db.jpg",
     "static/media/WhatsApp Video 2023-06-07 at 13.50.57.mp4": "/ejuandy/static/media/WhatsApp Video 2023-06-07 at 13.50.57.c7ea334db8f7d2e8a628.mp4",
     "static/media/rubberstampbackground.jpg": "/ejuandy/static/media/rubberstampbackground.c844e51cfbfec912456e.jpg",
+    "static/media/annabel_series.jpg": "/ejuandy/static/media/annabel_series.71ca058b4871d948d71d.jpg",
     "static/media/prime.png": "/ejuandy/static/media/prime.57c59cb19a06a974f863.png",
     "static/media/teens-hangout.jpg": "/ejuandy/static/media/teens-hangout.ed226d4f503f1975983a.jpg",
+    "static/media/sakatawa.jpg": "/ejuandy/static/media/sakatawa.b7bf34e2b8c8f2ee564c.jpg",
     "static/media/2112.i607.022.S.m012.c12.fintech_isometric_composition-removebg-preview.png": "/ejuandy/static/media/2112.i607.022.S.m012.c12.fintech_isometric_composition-removebg-preview.2dcda0d399cee2ff3a7d.png",
-    "static/media/crazy-world..jpeg": "/ejuandy/static/media/crazy-world..7a0c3dc12bbff82502f2.jpeg",
     "static/media/dstv-use-img.png": "/ejuandy/static/media/dstv-use-img.47a023d22d1da583fa96.png",
     "static/media/30s single andbored.jpeg": "/ejuandy/static/media/30s single andbored.04f5dc2979d2d7e04e72.jpeg",
-    "static/media/anniversary.png.jpeg": "/ejuandy/static/media/anniversary.png.df33966620216cae9e74.jpeg",
-    "static/media/showmax-img-removebg-preview.png": "/ejuandy/static/media/showmax-img-removebg-preview.a4cba8daf351ecf45093.png",
+    "static/media/mtn.jpg": "/ejuandy/static/media/mtn.b086243734433db66829.jpg",
+    "static/media/alwaysLogo.png": "/ejuandy/static/media/alwaysLogo.d881d11b119e4031603b.png",
+    "static/media/pepsiLogo.png": "/ejuandy/static/media/pepsiLogo.33c50389aa4edc778aa5.png",
     "static/media/waptv-removebg-preview.png": "/ejuandy/static/media/waptv-removebg-preview.07f06444d21ad64d24d3.png",
     "static/media/Netflix-img.png": "/ejuandy/static/media/Netflix-img.303904f75553a51bbf31.png",
     "static/media/africa-magic.png": "/ejuandy/static/media/africa-magic.0655dc40afa27a1e1d31.png",
     "index.html": "/ejuandy/index.html",
-    "main.9fa9a805.css.map": "/ejuandy/static/css/main.9fa9a805.css.map",
-    "main.eec738fa.js.map": "/ejuandy/static/js/main.eec738fa.js.map",
+    "main.4460fe61.css.map": "/ejuandy/static/css/main.4460fe61.css.map",
+    "main.a0ff75d1.js.map": "/ejuandy/static/js/main.a0ff75d1.js.map",
     "453.2b24a44d.chunk.js.map": "/ejuandy/static/js/453.2b24a44d.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.9fa9a805.css",
-    "static/js/main.eec738fa.js"
+    "static/css/main.4460fe61.css",
+    "static/js/main.a0ff75d1.js"
   ]
 }
