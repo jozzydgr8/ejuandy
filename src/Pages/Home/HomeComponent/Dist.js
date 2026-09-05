@@ -5,8 +5,8 @@ export const Dist = ()=>{
     const [more,setMore]= useState(false);
     return(
       <>
-        <section id="distribution-section" className="background">
-            <div className="container-fluid">
+        <section id="distribution-section" className="background text-center">
+            <div className="container-fluid ">
                <div style={{textAlign: "center"}}>
                  <p className='badge'>EIC Distribution</p>
             <h2 className="animate-up">
@@ -20,25 +20,20 @@ export const Dist = ()=>{
                             Our Francophone Distribution network is not left out, over 1,000 & more french,
                             Wolof & other African language titles on distribution.
 
-                            {more ? <span>
-                                <p> 
-                                    
-                                    p.s : while sending us a mail for business concerning distribution send us a link to your 
-                                     movie/series trailer Thank you.
-                                
-                             </p>
-                            </span>
-                            :
-                            <span>...</span>}
                             
-                            <button onClick={()=>!more ? setMore(true): setMore(false)} className="more-less-button readmore-btn" >
-                                {more ? <span>read less</span> : <span>read more</span>}
-                            </button>
+                            
+                            
 
                 </p>
             
 
             <Media/>
+             <p className="mt-4"> 
+                                    
+                p.s : while sending us a mail for business concerning distribution send us a link to your 
+                    movie/series trailer Thank you.
+            
+            </p>
             </div>
         </section>
         <hr />
