@@ -14,7 +14,7 @@ export const Services = ()=>{
                         {
                             serviceData.map((service, index)=>(
                                 <div key= {index} className="col-md-4  mb-4">
-                                    <div className="serviceCard d-flex flex-column h-100 animate-up">
+                                    <div className="serviceCard d-flex flex-column h-100 animate-up" style={{boxShadow: `0 4px 6px -1px ${service.color}`}}>
                                         <div className="icon-style">
                                             <ion-icon name={service.icon} size="large"></ion-icon>
                                         </div> 

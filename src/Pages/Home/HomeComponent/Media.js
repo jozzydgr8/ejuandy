@@ -1,24 +1,31 @@
 import Netflix from '../../../asset/Netflix-img.png';
-import aitLogo from '../../../asset/ait.jpg';
 import Dstv from '../../../asset/dstv-use-img.png';
-import always from '../../../asset/alwaysLogo.png';
-import mtn from '../../../asset/mtn.jpg';
-import pepsi from '../../../asset/pepsiLogo.png';
-import Wap from '../../../asset/waptv-removebg-preview.png';
 import AfricaMagic from '../../../asset/africa-magic.png';
+
 import sakaTawa from '../../../asset/sakatawa.jpg';
 import single from '../../../asset/30s single andbored.jpeg';
 import annabel from '../../../asset/annabel_series.jpg';
 import prime from '../../../asset/prime.png';
 import hangout from '../../../asset/teens-hangout.jpg';
-import Marquee from "react-fast-marquee";
+
+import DoualaDeSeries from '../../../asset/doualadeseriesw.jpg';
+import DurbanFilmMart from '../../../asset/durbanfilmmart.jpg';
+import FameWeekAfrica from '../../../asset/fameweekafrica.jpg';
+import JamaicaFilmFestival from '../../../asset/jamaicafilmfestival.png';
+import bantuFilmFestival from '../../../asset/bantufilmfestival.jpg';
+import camiff from '../../../asset/camiff.jpg';
+import botswanaFilmFestival from '../../../asset/botswanafilmfestival.jpg';
+import ubuntuFilmFestival from '../../../asset/ubuntufilmfestival.jpg';
+
+import Marquee from 'react-fast-marquee';
+
 
 export const featuredMedia = [
-    {
-        name:'hangout',
-        image:hangout,
-        alt:'hangout'
-    },
+  {
+    name: 'hangout',
+    image: hangout,
+    alt: 'hangout',
+  },
   {
     name: 'sakaTawa World',
     image: sakaTawa,
@@ -36,75 +43,116 @@ export const featuredMedia = [
   },
 ];
 
+
 export const distributionPartners = [
   {
     name: 'Prime',
     image: prime,
-    alt: 'p',
+    alt: 'Prime',
   },
-  {
-    name: 'always',
-    image: always,
-    alt: 'a',
-  },
-  {
-    name: 'mtn',
-    image: mtn,
-    alt: 'm',
-  },
-  
   {
     name: 'Netflix',
     image: Netflix,
-    alt: 'netflix',
-  },
-  {
-    name: 'aitLogo',
-    image: aitLogo,
-    alt: 'aitLogo',
+    alt: 'Netflix',
   },
   {
     name: 'DStv',
     image: Dstv,
-    alt: 'dstv',
-  },
-  {
-    name: 'WAP TV',
-    image: Wap,
-    alt: 'wtv',
+    alt: 'DStv',
   },
   {
     name: 'Africa Magic',
     image: AfricaMagic,
-    alt: 'am',
+    alt: 'Africa Magic',
+  },
+  {
+    name: 'Douala De Series',
+    image: DoualaDeSeries,
+    alt: 'Douala De Series',
+  },
+  {
+    name: 'Durban FilmMart',
+    image: DurbanFilmMart,
+    alt: 'Durban FilmMart',
+  },
+  {
+    name: 'Fame Week Africa',
+    image: FameWeekAfrica,
+    alt: 'Fame Week Africa',
+  },
+  {
+    name: 'Jamaica Film Festival',
+    image: JamaicaFilmFestival,
+    alt: 'Jamaica Film Festival',
+  },
+  {
+    name: 'Bantu Film Festival',
+    image: bantuFilmFestival,
+    alt: 'Bantu Film Festival',
+  },
+  {
+    name: 'CAMIFF',
+    image: camiff,
+    alt: 'CAMIFF',
+  },
+  {
+    name: 'Botswana Film Festival',
+    image: botswanaFilmFestival,
+    alt: 'Botswana Film Festival',
+  },
+  {
+    name: 'Ubuntu Film Festival',
+    image: ubuntuFilmFestival,
+    alt: 'Ubuntu Film Festival',
   },
 ];
 
-export const Media = ()=>{
-    return(
-        <>
-            <div className="row">
-                {
-                    featuredMedia.map((featured, index)=>(
-                        <div key={index} className="col-md-3 mb-4 animate-up">
-                           
-                                <img src={featured.image} alt={featured.alt} style={{width:"100%", height:"300px", objectFit:"cover", borderRadius:"8px"}}/>                        
-                        </div>
-                    )
-                )
-                }
-            </div>
 
+export const Media = () => {
+  return (
+    <>
+      {/* Featured Media */}
+      <div className="row">
+        {featuredMedia.map((featured, index) => (
+          <div
+            key={index}
+            className="col-md-3 mb-4 animate-up"
+          >
+            <img
+              src={featured.image}
+              alt={featured.alt}
+              style={{
+                width: '100%',
+                height: '300px',
+                objectFit: 'cover',
+                borderRadius: '8px',
+              }}
+            />
+          </div>
+        ))}
+      </div>
 
-            <Marquee direction='left'>
-                {
-                    distributionPartners.map((partner, index)=>(
-                        <div key={index} style={{margin:"0 20px"}}>
-                            <img src={partner.image} alt={partner.alt} style={{width:"150px", height:"100px", objectFit:"contain"}}/>
-                        </div>
-                    ))
-                }
-            </Marquee>
-        </>
-    )
-}
+      {/* Distribution Partners & Film Festivals */}
+      <Marquee direction="left">
+        {distributionPartners.map((partner, index) => (
+          <div
+            key={index}
+            style={{
+              margin: '0 20px',
+            }}
+          >
+            <img
+              src={partner.image}
+              alt={partner.alt}
+              style={{
+                width: '150px',
+                height: '100px',
+                objectFit: 'contain',
+              }}
+            />
+          </div>
+        ))}
+      </Marquee>
+    </>
+  );
+};
