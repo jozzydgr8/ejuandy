@@ -1,8 +1,8 @@
-import { useState } from "react"
+
 import { Media } from "./Media";
 
 export const Dist = ()=>{
-    const [more,setMore]= useState(false);
+  
     return(
       <>
         <section id="distribution-section" className="background text-center">

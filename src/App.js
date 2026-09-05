@@ -57,7 +57,7 @@ function App() {
   
   const router = createBrowserRouter(createRoutesFromElements(
     <>
-    <Route path="ejuandy" element={<Root/>}>
+    <Route path="/" element={<Root/>}>
       <Route index element={<Home/>}/>
       <Route path='form' element={user ? user.emailVerified ? <FinForm /> : <Navigate to={'/ejuandy/verify'} />:<Navigate to ='/ejuandy/signUp'/>}/>
       <Route path='logIn' element={!user ? <Login />: <Navigate to={'/ejuandy/form'} />}/>
@@ -65,7 +65,7 @@ function App() {
       <Route path = 'verify' element = {user && !user.emailVerified ? <VerifyEmail />:<Navigate to ={'/ejuandy/form'}/>} />
     </Route>
 
-    <Route path='ejuandy/admin' element={addy ? <AdminRoot/> :<Navigate to='/ejuandy'/> }>
+    <Route path='/admin' element={addy ? <AdminRoot/> :<Navigate to='/ejuandy'/> }>
     <Route index element={user ? <Admin/> : <Navigate to ='auth'/>} />
     <Route path='auth' element={!user ? <Login/> : <Navigate to ='..' />} />
     <Route path=":id" element={user ? <LoanClient /> : <Navigate to ='/ejuandy' />} />
