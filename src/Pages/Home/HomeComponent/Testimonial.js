@@ -21,7 +21,7 @@ export const Testimonial = ()=>{
 
 
                 <h2 className="testimonials ubuntu">
-                    over 100 French Films & TV Series across Africa
+                    over 2,000 French Films & TV Series across Africa
                   </h2>
 
 
