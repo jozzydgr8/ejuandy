@@ -1,6 +1,7 @@
 
 import aboutImage from '../../../asset/rubberstampbackground.jpg'
 import { FlatButton } from "../../../shared/FlatButton"
+import {handleRequest} from "../../../shared/handleRequest"
 
 export const About = ()=>{
     return(
@@ -44,7 +45,7 @@ export const About = ()=>{
                                     </div>
                                 </div>
                             <div>
-                                <FlatButton title='Learn More' className='btn btnPrimary btn-xl'/>
+                                <FlatButton onClick={()=>handleRequest( "Hello EIC Communications! I came across your website and I'm interested in learning more about your company, services, and how you bridge content creators with African audiences. I would love to know more about what you do and how we can work together. Thank you!")} title='Learn More' className='btn btnPrimary btn-xl'/>
                             </div>
                         </div>
 

@@ -1,5 +1,6 @@
 import {serviceData} from "../../../Data"
 import { FlatButton } from "../../../shared/FlatButton"
+import {handleRequest} from "../../../shared/handleRequest"
 export const Services = ()=>{
     return(
         <section id="services">
@@ -22,6 +23,7 @@ export const Services = ()=>{
                                             <h3>{service.name}</h3>
                                             <p>{service.description}</p>
                                             <FlatButton
+                                             onClick={()=>handleRequest(`${service.message}`)}
                                             title="Learn More"
                                             className='borderlessbtn mt-auto text-start'
                                             
